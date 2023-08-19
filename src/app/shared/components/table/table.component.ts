@@ -42,13 +42,14 @@ export class TableComponent {
 
   @ViewChild(MatPaginator) private paginator!: MatTableDataSourcePaginator;
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   protected ngOnInit() {
     this.dataSource = new MatTableDataSource(this.data);
   }
 
   protected ngAfterViewInit() {
+    console.log(this.data)
     this.bodysProcessed = this.bodys.map((body) => body);
     this.headerProcessed = this.headers!.map((header) => header);
 
@@ -58,5 +59,6 @@ export class TableComponent {
       (header, index) =>
         header.content?.nativeElement.innerHTML || 'col-' + index
     );
+    this.cd.detectChanges();
   }
 }
