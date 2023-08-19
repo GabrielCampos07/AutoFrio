@@ -49,7 +49,6 @@ export class TableComponent {
   }
 
   protected ngAfterViewInit() {
-    console.log(this.data)
     this.bodysProcessed = this.bodys.map((body) => body);
     this.headerProcessed = this.headers!.map((header) => header);
 

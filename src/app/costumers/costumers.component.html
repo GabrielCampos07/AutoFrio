@@ -1,17 +1,20 @@
 <div class="container">
   <ng-container *ngIf="costumers">
-    <app-table [data]="costumers">
-      <div t-head>position</div>
-      <div *TableItem="let item">{{ item.position }}</div>
+    <app-table [data]="costumers" [length]="costumers.length">
+      <div t-head>id</div>
+      <div *TableItem="let item">{{ item.id }}</div>
 
       <div t-head>name</div>
       <div *TableItem="let item">{{ item.name }}</div>
 
-      <div t-head>weight</div>
-      <div *TableItem="let item">{{ item.weight }}</div>
+      <div t-head>adress</div>
+      <div *TableItem="let item">{{ item.adress }}</div>
 
-      <div t-head>symbol</div>
-      <div *TableItem="let item">{{ item.symbol }}</div>
+      <div t-head>email</div>
+      <div *TableItem="let item">{{ item.email }}</div>
+
+      <div t-head>telephone</div>
+      <div *TableItem="let item">{{ item.telephone }}</div>
     </app-table>
   </ng-container>
 </div>
