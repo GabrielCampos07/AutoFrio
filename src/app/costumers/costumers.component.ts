@@ -12,11 +12,7 @@ export class CostumersComponent {
 
   constructor(private costumersService: CostumersService) {}
 
-  ngOnInit() {
-    this.getCostumers();
-  }
-
-  getCostumers(): void {
+  ngOnInit(): void {
     this.costumersService
       .getCostumers()
       .subscribe((costumers) => (this.costumers = costumers));

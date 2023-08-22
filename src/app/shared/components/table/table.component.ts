@@ -49,8 +49,8 @@ export class TableComponent {
   }
 
   protected ngAfterViewInit() {
-    this.bodysProcessed = this.bodys.map((body) => body);
     this.headerProcessed = this.headers!.map((header) => header);
+    this.bodysProcessed = this.bodys.map((body) => body);
 
     this.dataSource.paginator = this.paginator;
 

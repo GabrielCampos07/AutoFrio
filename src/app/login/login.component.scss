@@ -1,0 +1,15 @@
+.container {
+  background-color: #d6ecef;
+  display: grid;
+  place-content: center;
+
+  mat-card-header {
+    align-self: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+}

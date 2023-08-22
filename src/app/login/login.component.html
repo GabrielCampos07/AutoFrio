@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <img
+        src="assets/images/snowflake.png"
+        alt="auto-frio-logo"
+        width="110px"
+      />
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <mat-form-field appearance="outline">
+          <mat-label>Usuário</mat-label>
+          <input matInput name="login" placeholder="Nome de usuário" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input
+            matInput
+            name="password"
+            placeholder="Senha"
+            [type]="hidePassword ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            type="button"
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+          >
+            <mat-icon>{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-raised-button color="primary">Entrar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
