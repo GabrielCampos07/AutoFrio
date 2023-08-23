@@ -1,0 +1,19 @@
+:host {
+  width: 100%;
+
+  mat-toolbar-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+  }
+
+  img {
+    cursor: pointer;
+  }
+
+  .logo,
+  ::ng-deep .mdc-button__label {
+    display: grid;
+    place-content: center;
+  }
+}

@@ -1,1 +1,11 @@
-<p>menu works!</p>
+<div class="logo">
+  <img src="assets/images/snowflake.png" alt="autofrio-logo" width="80px" />
+</div>
+<mat-nav-list class="menu">
+  <app-menu-item
+    *ngFor="let modulo of modulos"
+    [modulo]="modulo"
+    (menuItemClick)="itemClick.emit()"
+  >
+  </app-menu-item>
+</mat-nav-list>

@@ -1,1 +1,22 @@
-<p>page works!</p>
+<div class="page">
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" #sidenav>
+      <app-menu (itemClick)="sidenav.toggle()"></app-menu>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar class="header">
+        <app-header
+          [menuState]="sidenav.opened"
+          (menuStateChange)="sidenav.toggle()"
+        ></app-header>
+      </mat-toolbar>
+
+      <div class="container-page">
+        <div>
+          <router-outlet #outlet="outlet"></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

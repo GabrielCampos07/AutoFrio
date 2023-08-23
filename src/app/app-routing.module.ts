@@ -3,19 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login',
+  },
+  {
     path: 'login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
   },
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'login',
-  },
-  {
-    path: 'costumers',
+    data: {
+      preloadAfterRoute: 'login',
+      preloadDelay: 1000,
+    },
     loadChildren: () =>
-      import('./costumers/costumers.module').then((m) => m.CostumersModule),
+      import('./autofrio.routes').then((m) => m.AutoFrioRoutingModule),
   },
 ];
 

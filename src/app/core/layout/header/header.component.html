@@ -1,1 +1,16 @@
-<p>header works!</p>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <div class="logo">
+      <img
+        (click)="menuStateChange.emit()"
+        src="assets/images/menu-{{ menuState ? 'aberto' : 'fechado' }}.svg"
+        width="25px"
+      />
+    </div>
+    <div class="icons">
+      <button mat-button class="perfil-circle">
+        <img src="assets/images/user.svg" />
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
