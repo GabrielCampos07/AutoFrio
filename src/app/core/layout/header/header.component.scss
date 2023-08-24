@@ -1,19 +1,25 @@
 :host {
   width: 100%;
+}
 
-  mat-toolbar-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 10px;
-  }
+mat-toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px;
+}
 
-  img {
-    cursor: pointer;
-  }
+img {
+  cursor: pointer;
+}
 
-  .logo,
-  ::ng-deep .mdc-button__label {
+.logo,
+::ng-deep {
+  .mdc-button__label {
     display: grid;
     place-content: center;
   }
+}
+
+mat-toolbar {
+  background: #f1f2f6;
 }

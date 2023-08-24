@@ -3,8 +3,8 @@
 </div>
 <mat-nav-list class="menu">
   <app-menu-item
-    *ngFor="let modulo of modulos"
-    [modulo]="modulo"
+    *ngFor="let module of modules"
+    [module]="module"
     (menuItemClick)="itemClick.emit()"
   >
   </app-menu-item>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Module } from 'src/app/shared/models/module';
+import { ModulesService } from 'src/app/shared/services/modules.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,16 +10,13 @@ import { Module } from 'src/app/shared/models/module';
 export class MenuComponent {
   @Output() itemClick = new EventEmitter();
 
-  public modulos: Module[] = [
-    {
-      rota: 'dashboard',
-      descricao: 'Dashboard',
-      icone: 'dashboard',
-    },
-    {
-      rota: 'costumers',
-      descricao: 'Costumers',
-      icone: 'person_search',
-    },
-  ];
+  public modules: Module[] = [];
+
+  constructor(private modulesService: ModulesService) {}
+
+  ngOnInit() {
+    this.modulesService
+      .getModules()
+      .subscribe((modules: Module[]) => (this.modules = modules));
+  }
 }

@@ -1,15 +1,15 @@
-<div class="menu-item" *ngIf="modulo">
+<div class="menu-item" *ngIf="module">
   <div
     class="grid-item"
     [style.padding-left]="level * 20 + 25 + 'px'"
-    [routerLink]="modulo.rota"
+    [routerLink]="module.rota"
     routerLinkActive="active"
-    (click)="menuClick(modulo.rota)"
+    (click)="menuClick(module.rota)"
     [class.little]="level > 1"
   >
-    <mat-icon> {{ modulo.icone }} </mat-icon>
+    <mat-icon> {{ module.icone }} </mat-icon>
     <label>
-      {{ modulo.descricao }}
+      {{ module.descricao }}
     </label>
   </div>
 </div>

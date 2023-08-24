@@ -8,7 +8,12 @@ import { Module } from 'src/app/shared/models/module';
 })
 export class MenuItemComponent {
   @Input() level: number = 0;
-  @Input() modulo: any = {};
+  @Input() module: Module = {
+    rota: '',
+    descricao: '',
+    icone: '',
+  };
+
   @Output() menuItemClick = new EventEmitter();
 
   ngOnit(): void {}

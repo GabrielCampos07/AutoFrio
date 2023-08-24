@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Http } from './http.service';
-import { Costumers } from '../models/costumers';
+import { Observable } from 'rxjs';
+import { Module } from '../models/module';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CostumersService {
-  private route: string = 'costumers';
+export class ModulesService {
+  private route: string = 'modules';
 
   constructor(private http: Http) {}
 
-  getCostumers(): Observable<Costumers[]> {
+  public getModules(): Observable<Module[]> {
     return this.http.get(`/${this.route}`);
   }
 }
