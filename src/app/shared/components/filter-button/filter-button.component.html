@@ -1,0 +1,12 @@
+<div class="button" (click)="openFilter = !openFilter" @fadeAnimation>
+  <mat-icon>filter_list</mat-icon>
+  <span>Filtrar</span>
+  <mat-icon [class.rotate]="!openFilter">arrow_drop_down</mat-icon>
+</div>
+
+<div
+  class="filter-content mat-elevation-z8"
+  [@filterExpand]="openFilter ? 'expanded' : 'collapsed'"
+>
+  <div class="content"><ng-content></ng-content></div>
+</div>
