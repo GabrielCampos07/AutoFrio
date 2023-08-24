@@ -33,10 +33,6 @@ import {
     ]),
   ],
 })
-export class FilterButtonComponent implements OnInit {
+export class FilterButtonComponent {
   openFilter = false;
-
-  constructor() {}
-
-  ngOnInit() {}
 }
