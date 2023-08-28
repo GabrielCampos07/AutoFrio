@@ -9,12 +9,19 @@ import { Costumers } from '../shared/models/costumers';
 })
 export class CostumersComponent {
   costumers!: Costumers[];
+  costumerName: string = '';
 
   constructor(private costumersService: CostumersService) {}
 
   ngOnInit(): void {
     this.costumersService
       .getCostumers()
+      .subscribe((costumers) => (this.costumers = costumers));
+  }
+
+  getCostumersByName(): void {
+    this.costumersService
+      .getCostumersByName(this.costumerName)
       .subscribe((costumers) => (this.costumers = costumers));
   }
 }

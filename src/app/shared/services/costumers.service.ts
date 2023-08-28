@@ -14,4 +14,8 @@ export class CostumersService {
   getCostumers(): Observable<Costumers[]> {
     return this.http.get(`/${this.route}`);
   }
+
+  getCostumersByName(name: string): Observable<Costumers[]> {
+    return this.http.get(`/${this.route}?name_like=${name}`);
+  }
 }

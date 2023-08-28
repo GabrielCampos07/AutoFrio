@@ -20,7 +20,14 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent {
-  @Input() data: unknown[] = [];
+  @Input() public get data(): unknown[] {
+    return this._data;
+  }
+
+  public set data(v: unknown[] | undefined) {
+    this._data = v || [];
+    this.dataSource = new MatTableDataSource(this.data);
+  }
 
   @Input() pageSizeOptions = [10, 25, 50];
 
@@ -39,6 +46,8 @@ export class TableComponent {
   protected bodysProcessed: TableItemDirective[] = [];
 
   protected displayedColumns: string[] = [];
+
+  private _data: unknown[] = [];
 
   @ViewChild(MatPaginator) private paginator!: MatTableDataSourcePaginator;
 

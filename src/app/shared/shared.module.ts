@@ -3,6 +3,7 @@ import { MaterialModule } from './modules/material.module';
 import { TableModule } from './components/table/table.module';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
 import { SearchButtonComponent } from './components/search-button/search-button.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [MaterialModule],
@@ -12,6 +13,7 @@ import { SearchButtonComponent } from './components/search-button/search-button.
     TableModule,
     FilterButtonComponent,
     SearchButtonComponent,
+    FormsModule,
   ],
   providers: [],
 })

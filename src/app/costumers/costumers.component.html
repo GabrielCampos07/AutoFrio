@@ -1,46 +1,46 @@
-<div class="container">
-  <div class="title">
-    <mat-icon>person</mat-icon>
-    <h1>Costumers</h1>
-  </div>
-  <div class="header">
-    <div>
-      <app-filter-button>
-        <div class="content">
-          <mat-form-field appearance="outline">
-            <mat-label>Nome</mat-label>
-            <input matInput />
-          </mat-form-field>
-
-          <div class="content-buttons">
-            <div>
-              <mat-slide-toggle labelPosition="before">Status</mat-slide-toggle>
-            </div>
-            <app-search-button></app-search-button>
-          </div>
-        </div>
-      </app-filter-button>
-    </div>
-    <div>
-      <button mat-flat-button color="accent">CADASTRAR</button>
-    </div>
-  </div>
-  <ng-container *ngIf="costumers">
-    <app-table [data]="costumers" [length]="costumers.length">
-      <div t-head>id</div>
-      <div *TableItem="let item">{{ item.id }}</div>
-
-      <div t-head>name</div>
-      <div *TableItem="let item">{{ item.name }}</div>
-
-      <div t-head>adress</div>
-      <div *TableItem="let item">{{ item.adress }}</div>
-
-      <div t-head>email</div>
-      <div *TableItem="let item">{{ item.email }}</div>
-
-      <div t-head>telephone</div>
-      <div *TableItem="let item">{{ item.telephone }}</div>
-    </app-table>
-  </ng-container>
+<div class="title">
+  <mat-icon>person</mat-icon>
+  <h1>Costumers</h1>
 </div>
+<div class="header">
+  <div>
+    <app-filter-button>
+      <div class="content">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="costumerName" />
+        </mat-form-field>
+
+        <app-search-button (click)="getCostumersByName()"></app-search-button>
+      </div>
+    </app-filter-button>
+  </div>
+  <div>
+    <button mat-flat-button color="accent">CADASTRAR</button>
+  </div>
+</div>
+<ng-container *ngIf="costumers">
+  <app-table [data]="costumers" [length]="costumers.length">
+    <div t-head>ID</div>
+    <div *tableItem="let item">{{ item.id }}</div>
+
+    <div t-head>Name</div>
+    <div *tableItem="let item">{{ item.name }}</div>
+
+    <div t-head>Adress</div>
+    <div *tableItem="let item">{{ item.address }}</div>
+
+    <div t-head>Email</div>
+    <div *tableItem="let item">{{ item.email }}</div>
+
+    <div t-head>Telephone</div>
+    <div *tableItem="let item">{{ item.telephone }}</div>
+
+    <div t-head>Action</div>
+    <div *tableItem="let item">
+      <button mat-mini-fab>
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </app-table>
+</ng-container>
