@@ -1,5 +1,5 @@
 export interface Module {
-  rota: string;
-  descricao: string;
-  icone: string;
+  route: string;
+  description: string;
+  icon: string;
 }

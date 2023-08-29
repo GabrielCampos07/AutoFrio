@@ -177,19 +177,19 @@
   ],
   "modules": [
     {
-      "rota": "dashboard",
-      "descricao": "Dashboard",
-      "icone": "dashboard"
+      "route": "dashboard",
+      "description": "Dashboard",
+      "icon": "dashboard"
     },
     {
-      "rota": "costumers",
-      "descricao": "Costumers",
-      "icone": "person_search"
+      "route": "costumers",
+      "description": "Costumers",
+      "icon": "person_search"
     },
     {
-      "rota": "products",
-      "descricao": "Products",
-      "icone": "store_mall_directory"
+      "route": "products",
+      "description": "Products",
+      "icon": "store_mall_directory"
     }
   ]
 }

@@ -27,8 +27,6 @@ export class InputComponent {
     this.ngModelChange.emit(this.ngModel);
   }
 
-  private _model: string = '';
-
   public formControl: FormControl = new FormControl();
 
   constructor() {}

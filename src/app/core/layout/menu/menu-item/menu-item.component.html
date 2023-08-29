@@ -2,14 +2,14 @@
   <div
     class="grid-item"
     [style.padding-left]="level * 20 + 25 + 'px'"
-    [routerLink]="module.rota"
+    [routerLink]="module.route"
     routerLinkActive="active"
-    (click)="menuClick(module.rota)"
+    (click)="menuClick(module.route)"
     [class.little]="level > 1"
   >
-    <mat-icon> {{ module.icone }} </mat-icon>
+    <mat-icon> {{ module.icon }} </mat-icon>
     <label>
-      {{ module.descricao }}
+      {{ module.description }}
     </label>
   </div>
 </div>

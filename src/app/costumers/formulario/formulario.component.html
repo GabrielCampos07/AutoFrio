@@ -1,6 +1,6 @@
 <div class="dialog" *ngIf="costumer">
   <div class="buttons">
-    <h2>{{ !costumer.id ? "Cadastrar" : "Editar" }}</h2>
+    <h2>{{ !costumer.id ? "Register" : "Edit" }}</h2>
     <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
   </div>
   <div>
@@ -8,22 +8,22 @@
       <div class="forms">
         <app-input
           [(ngModel)]="costumer.name!"
-          label="Nome"
+          label="Name"
           [required]="true"
-          name="Nome"
+          name="Name"
           ngDefaultControl
         >
-          <span required>Nome é obrigatório!</span>
+          <span required>Name is required!</span>
         </app-input>
 
         <app-input
           [(ngModel)]="costumer.address!"
-          label="Endereço"
+          label="Adress"
           [required]="true"
-          name="Endereço"
+          name="Adress"
           ngDefaultControl
         >
-          <span required>Endereço é obrigatório!</span>
+          <span required>Adress is required!</span>
         </app-input>
 
         <app-input
@@ -38,18 +38,18 @@
 
         <app-input
           [(ngModel)]="costumer.telephone!"
-          label="Telefone"
+          label="Telephone"
           [required]="true"
-          name="Telefone"
+          name="Telephone"
           ngDefaultControl
-          ><span required>Telefone é obrigatório!</span></app-input
+          ><span required>Telephone is required!</span></app-input
         >
       </div>
     </app-form>
   </div>
 
   <div mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close>Cancelar</button>
-    <button mat-raised-button (click)="saveCostumer(form)">Salvar</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button (click)="saveCostumer(form)">Save</button>
   </div>
 </div>

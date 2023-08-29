@@ -9,9 +9,9 @@ import { Module } from 'src/app/shared/models/module';
 export class MenuItemComponent {
   @Input() level: number = 0;
   @Input() module: Module = {
-    rota: '',
-    descricao: '',
-    icone: '',
+    route: '',
+    description: '',
+    icon: '',
   };
 
   @Output() menuItemClick = new EventEmitter();
