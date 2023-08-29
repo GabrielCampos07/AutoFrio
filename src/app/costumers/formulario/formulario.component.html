@@ -6,45 +6,29 @@
   <div>
     <app-form #form>
       <div class="forms">
-        <mat-form-field appearance="outline">
-          <mat-label>Nome</mat-label>
-          <input
-            matInput
-            placeholder="Nome do cliente"
-            [(ngModel)]="costumer.name"
-            required
-          />
-        </mat-form-field>
+        <app-input
+          [model]="costumer.name!"
+          label="Nome"
+          [required]="true"
+        ></app-input>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Endereço</mat-label>
-          <input
-            matInput
-            placeholder="Endereço do cliente"
-            [(ngModel)]="costumer.address"
-            required
-          />
-        </mat-form-field>
+        <app-input
+          [model]="costumer.address!"
+          label="Endereço"
+          [required]="true"
+        ></app-input>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            placeholder="Nome do cliente"
-            [(ngModel)]="costumer.email"
-            required
-          />
-        </mat-form-field>
+        <app-input
+          [model]="costumer.email!"
+          label="Email"
+          [required]="true"
+        ></app-input>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Telefone</mat-label>
-          <input
-            matInput
-            placeholder="Nome do cliente"
-            [(ngModel)]="costumer.telephone"
-            required
-          />
-        </mat-form-field>
+        <app-input
+          [model]="costumer.telephone!"
+          label="Telefone"
+          [required]="true"
+        ></app-input>
       </div>
     </app-form>
   </div>

@@ -1,0 +1,10 @@
+<mat-form-field appearance="outline">
+  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <input
+    matInput
+    [placeholder]="placeholder"
+    [required]="required"
+    [(ngModel)]="model"
+    (input)="modelChanging()"
+  />
+</mat-form-field>

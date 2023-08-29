@@ -5,7 +5,7 @@ import {
   ContentChildren,
   QueryList,
 } from '@angular/core';
-import { InputFormComponent } from './components/inputForm.component';
+import { InputComponent } from '../input/input.component';
 
 @Component({
   selector: 'app-form',
@@ -13,7 +13,7 @@ import { InputFormComponent } from './components/inputForm.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormComponent {
-  @ContentChildren(InputFormComponent, { descendants: true })
-  inputs: QueryList<InputFormComponent> = new QueryList<InputFormComponent>();
+  @ContentChildren(InputComponent, { descendants: true })
+  inputs: QueryList<InputComponent> = new QueryList<InputComponent>();
   constructor(private appRef: ApplicationRef) {}
 }

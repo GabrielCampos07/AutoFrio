@@ -34,7 +34,6 @@ export class CostumersComponent {
   }
 
   async openCostumer(Costumer?: Costumers) {
-    console.log(Costumer);
     const { FormularioComponent } = await import(
       './formulario/formulario.component'
     );
