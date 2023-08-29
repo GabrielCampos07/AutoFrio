@@ -56,13 +56,4 @@ O sistema de gerenciamento de oficina possui as seguintes funcionalidades:
 - Gerenciamento de clientes: Cadastro, edição, exclusão e visualização de clientes da oficina.
 - Gerenciamento de serviços: Registro e acompanhamento dos serviços prestados aos clientes.
 
-## Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou relatar problemas.
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
-```
-
 Lembre-se de substituir `"seu-usuario"` no comando `git clone` pelo seu nome de usuário no GitHub. Certifique-se de fornecer as informações corretas e os comandos exatos para iniciar a API e o servidor de desenvolvimento em seu projeto.
