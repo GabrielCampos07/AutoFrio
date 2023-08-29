@@ -1,27 +1,59 @@
-# Autofrio
+# Sistema de Gerenciamento de Oficina
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
+Este é um sistema de gerenciamento de oficina desenvolvido em Angular. Ele permite o gerenciamento de peças, clientes e serviços, proporcionando uma visão geral das atividades da oficina.
 
-## Development server
+## Configuração
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Certifique-se de ter o Node.js e o Angular CLI instalados em sua máquina.
 
-## Code scaffolding
+2. Clone este repositório:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+   ```bash
+   git clone https://github.com/seu-usuario/sistema-gerenciamento-oficina.git
+   ```
 
-## Build
+3. Navegue para o diretório do projeto:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   ```bash
+   cd sistema-gerenciamento-oficina
+   ```
 
-## Running unit tests
+4. Instale as dependências do projeto:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   ```bash
+   npm install
+   ```
 
-## Running end-to-end tests
+## Iniciar a API Simulada
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Este sistema usa o JSON Server para simular uma API. Para rodar a API, siga os seguintes passos:
 
-## Further help
+1. No diretório raiz do projeto, execute o seguinte comando:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   ```bash
+   npm run api
+   ```
+
+2. A API estará disponível em http://localhost:3000.
+
+## Iniciar o Servidor de Desenvolvimento
+
+Para iniciar o servidor de desenvolvimento do Angular e visualizar o sistema, siga os seguintes passos:
+
+1. No diretório raiz do projeto, execute o seguinte comando:
+
+   ```bash
+   npm run server
+   ```
+
+2. O aplicativo Angular estará disponível em http://localhost:4200.
+
+## Funcionalidades
+
+O sistema de gerenciamento de oficina possui as seguintes funcionalidades:
+
+- Gerenciamento de peças: Cadastro, edição, exclusão e visualização de peças disponíveis na oficina.
+- Gerenciamento de clientes: Cadastro, edição, exclusão e visualização de clientes da oficina.
+- Gerenciamento de serviços: Registro e acompanhamento dos serviços prestados aos clientes.
+
+Lembre-se de substituir `"seu-usuario"` no comando `git clone` pelo seu nome de usuário no GitHub. Certifique-se de fornecer as informações corretas e os comandos exatos para iniciar a API e o servidor de desenvolvimento em seu projeto.
