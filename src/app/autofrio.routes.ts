@@ -16,7 +16,16 @@ const routes: Routes = [
       {
         path: 'costumers',
         loadChildren: () =>
-          import('./costumers/costumers.module').then((m) => m.CostumersModule),
+          import('./administrative/costumers/costumers.module').then(
+            (m) => m.CostumersModule
+          ),
+      },
+      {
+        path: 'parts',
+        loadChildren: () =>
+          import('./administrative/parts/parts.module').then(
+            (m) => m.PartsModule
+          ),
       },
     ],
   },

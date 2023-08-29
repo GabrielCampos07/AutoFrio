@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Costumers } from 'src/app/costumers/shared/costumers';
-import { CostumersService } from 'src/app/costumers/shared/costumers.service';
+import { Costumers } from 'src/app/administrative/costumers/shared/costumers';
+import { CostumersService } from 'src/app/administrative/costumers/shared/costumers.service';
 import { FormComponent } from 'src/app/shared/components/form/form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
