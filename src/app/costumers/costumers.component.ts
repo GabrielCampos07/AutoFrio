@@ -12,6 +12,11 @@ export class CostumersComponent {
   costumers!: Costumers[];
   costumerName: string = '';
 
+  page: any = {
+    pageIndex: 0,
+    pageSize: 10,
+  };
+
   constructor(
     private matDialog: MatDialog,
     private costumersService: CostumersService
@@ -37,8 +42,11 @@ export class CostumersComponent {
     const { FormularioComponent } = await import(
       './formulario/formulario.component'
     );
-    this.matDialog.open(FormularioComponent, {
-      data: { costumer: Costumer },
-    });
+    this.matDialog
+      .open(FormularioComponent, {
+        data: { costumer: Costumer },
+      })
+      .afterClosed()
+      .subscribe(() => this.getCostumer());
   }
 }

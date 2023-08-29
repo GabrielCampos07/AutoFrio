@@ -13,6 +13,7 @@ import {
 import { TableHeaderComponent } from './components/header.component';
 import { TableItemDirective } from './components/table-item.directive';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-table',
@@ -33,6 +34,30 @@ export class TableComponent {
 
   @Input() length: number = 0;
 
+  @Input()
+  public page: any = {
+    pageIndex: 0,
+    pageSize: 10,
+  };
+
+  private paginator!: MatPaginator;
+  private sort!: MatSort;
+
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   @ContentChildren(TableHeaderComponent)
   protected headers?: QueryList<TableHeaderComponent>;
 
@@ -49,8 +74,6 @@ export class TableComponent {
 
   private _data: unknown[] = [];
 
-  @ViewChild(MatPaginator) private paginator!: MatTableDataSourcePaginator;
-
   constructor(private cd: ChangeDetectorRef) {}
 
   protected ngOnInit() {
@@ -60,8 +83,6 @@ export class TableComponent {
   protected ngAfterViewInit() {
     this.headerProcessed = this.headers!.map((header) => header);
     this.bodysProcessed = this.bodys.map((body) => body);
-
-    this.dataSource.paginator = this.paginator;
 
     this.displayedColumns = this.headerProcessed.map(
       (header, index) =>

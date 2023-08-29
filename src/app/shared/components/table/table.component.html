@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" matSort>
   <ng-container
     [matColumnDef]="displayedColumns[i]"
     *ngFor="let item of headerProcessed; let i = index"
@@ -24,6 +24,6 @@
   [length]="length"
   [pageSizeOptions]="pageSizeOptions"
   showFirstLastButtons
-  aria-label="Select page of periodic elements"
+  (page)="(page)"
 >
 </mat-paginator>

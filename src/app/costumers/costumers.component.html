@@ -22,7 +22,7 @@
   </div>
 </div>
 <ng-container *ngIf="costumers">
-  <app-table [data]="costumers" [length]="costumers.length">
+  <app-table [data]="costumers" [length]="costumers.length" [page]="page">
     <div t-head>ID</div>
     <div *tableItem="let item">{{ item.id }}</div>
 

@@ -1,40 +1,55 @@
 <div class="dialog" *ngIf="costumer">
   <div class="buttons">
     <h2>{{ !costumer.id ? "Cadastrar" : "Editar" }}</h2>
-    <button mat-button [mat-dialog-close]=""><mat-icon>close</mat-icon></button>
+    <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
   </div>
   <div>
     <app-form #form>
       <div class="forms">
         <app-input
-          [model]="costumer.name!"
+          [(ngModel)]="costumer.name!"
           label="Nome"
           [required]="true"
-        ></app-input>
+          name="Nome"
+          ngDefaultControl
+        >
+          <span required>Nome é obrigatório!</span>
+        </app-input>
 
         <app-input
-          [model]="costumer.address!"
+          [(ngModel)]="costumer.address!"
           label="Endereço"
           [required]="true"
-        ></app-input>
+          name="Endereço"
+          ngDefaultControl
+        >
+          <span required>Endereço é obrigatório!</span>
+        </app-input>
 
         <app-input
-          [model]="costumer.email!"
+          [(ngModel)]="costumer.email!"
           label="Email"
           [required]="true"
-        ></app-input>
+          name="Email"
+          ngDefaultControl
+          type="email"
+        >
+        </app-input>
 
         <app-input
-          [model]="costumer.telephone!"
+          [(ngModel)]="costumer.telephone!"
           label="Telefone"
           [required]="true"
-        ></app-input>
+          name="Telefone"
+          ngDefaultControl
+          ><span required>Telefone é obrigatório!</span></app-input
+        >
       </div>
     </app-form>
   </div>
 
   <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>Cancelar</button>
-    <button mat-raised-button>Salvar</button>
+    <button mat-raised-button (click)="saveCostumer(form)">Salvar</button>
   </div>
 </div>

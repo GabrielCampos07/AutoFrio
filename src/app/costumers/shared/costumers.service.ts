@@ -22,4 +22,10 @@ export class CostumersService {
   getCostumersByName(name: string): Observable<Costumers[]> {
     return this.http.get(`/${this.route}?name_like=${name}`);
   }
+
+  saveCostumer(costumer: Costumers) {
+    return costumer.id
+      ? this.http.put(`/${this.route}/${costumer.id}`, costumer)
+      : this.http.post(`/${this.route}`, costumer);
+  }
 }

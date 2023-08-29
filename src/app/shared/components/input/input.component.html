@@ -4,7 +4,13 @@
     matInput
     [placeholder]="placeholder"
     [required]="required"
-    [(ngModel)]="model"
-    (input)="modelChanging()"
+    (input)="onInput($event)"
+    [type]="type"
+    [formControl]="formControl"
+    [name]="label"
   />
+
+  <mat-error *ngIf="formControl.errors?.['required']">
+    <ng-content select="[required]"></ng-content>
+  </mat-error>
 </mat-form-field>

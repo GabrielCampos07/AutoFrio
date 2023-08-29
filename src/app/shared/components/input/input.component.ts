@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -7,25 +7,52 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent {
-  @Output() modelChange = new EventEmitter();
-
   @Input() placeholder: string = '';
   @Input() label: string = '';
   @Input() required: boolean = false;
+  @Input() type: string = 'text';
+  @Input() ngModel: any;
 
-  @Input() get model() {
-    return this._model;
+  @Output() public ngModelChange = new EventEmitter();
+
+  @Output() public input = new EventEmitter();
+
+  get _ngModel() {
+    return this.ngModel;
   }
 
-  set model(value: string) {
-    this._model = value;
+  set _ngModel(val) {
+    if (val === undefined || val === null) return;
+    this.ngModel = val;
+    this.ngModelChange.emit(this.ngModel);
   }
 
   private _model: string = '';
 
+  public formControl: FormControl = new FormControl();
+
   constructor() {}
 
   modelChanging(): void {
-    this.modelChange.emit(this.model);
+    this.ngModelChange.emit(this.ngModel);
+  }
+
+  ngAfterContentInit(): void {
+    this.formControl.valueChanges.subscribe((value) => {
+      this._ngModel = value;
+    });
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.ngModel?.currentValue !== undefined)
+      this.formControl.setValue(changes.ngModel.currentValue);
+  }
+
+  onInput = ($event: any): void => {
+    this.input.emit($event);
+  };
+
+  valid(): boolean {
+    return this.formControl.errors == null;
   }
 }
