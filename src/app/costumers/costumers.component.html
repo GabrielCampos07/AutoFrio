@@ -16,7 +16,9 @@
     </app-filter-button>
   </div>
   <div>
-    <button mat-flat-button color="accent">CADASTRAR</button>
+    <button mat-flat-button color="accent" (click)="openCostumer()">
+      CADASTRAR
+    </button>
   </div>
 </div>
 <ng-container *ngIf="costumers">
@@ -27,7 +29,7 @@
     <div t-head>Name</div>
     <div *tableItem="let item">{{ item.name }}</div>
 
-    <div t-head>Adress</div>
+    <div t-head>Address</div>
     <div *tableItem="let item">{{ item.address }}</div>
 
     <div t-head>Email</div>
@@ -38,7 +40,7 @@
 
     <div t-head>Action</div>
     <div *tableItem="let item">
-      <button mat-mini-fab>
+      <button mat-mini-fab (click)="openCostumer(item)">
         <mat-icon>edit</mat-icon>
       </button>
     </div>

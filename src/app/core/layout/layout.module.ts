@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
@@ -9,7 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, SharedModule],
+  imports: [RouterModule, SharedModule],
   declarations: [PageComponent, HeaderComponent, MenuComponent, MenuItemComponent],
 })
 export class LayoutModule {}

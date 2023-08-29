@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Costumers } from 'src/app/costumers/shared/costumers';
+import { CostumersService } from 'src/app/costumers/shared/costumers.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
@@ -9,7 +12,20 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [SharedModule],
 })
 export class FormularioComponent implements OnInit {
-  constructor() {}
+  costumer: Costumers = {};
 
-  ngOnInit() {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { costumer: Costumers },
+    public dialogRef: MatDialogRef<FormularioComponent>,
+    private costumersService: CostumersService
+  ) {}
+
+  ngOnInit() {
+    if (this.data.costumer) {
+      this.costumersService
+        .getCostumer(this.data.costumer)
+        .subscribe((costumer) => (this.costumer = costumer));
+      return;
+    }
+  }
 }

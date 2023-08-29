@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Http } from './http.service';
-import { Costumers } from '../models/costumers';
+import { Http } from '../../shared/services/http.service';
+import { Costumers } from './costumers';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,10 @@ export class CostumersService {
 
   getCostumers(): Observable<Costumers[]> {
     return this.http.get(`/${this.route}`);
+  }
+
+  getCostumer(costumers: Costumers): Observable<Costumers> {
+    return this.http.get(`/${this.route}/${costumers.id}`);
   }
 
   getCostumersByName(name: string): Observable<Costumers[]> {

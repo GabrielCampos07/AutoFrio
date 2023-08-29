@@ -8,6 +8,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MAT_DIALOG_DEFAULT_OPTIONS,
+} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -22,7 +28,21 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatSidenavModule,
     MatListModule,
     MatSlideToggleModule,
+    MatDialogModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: { panelClass: 'dialog-panel' },
+    },
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: {},
+    },
+  ],
 })
 export class MaterialModule {}
