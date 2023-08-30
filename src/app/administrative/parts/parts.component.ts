@@ -3,6 +3,7 @@ import { Parts } from './shared/parts';
 import { MatDialog } from '@angular/material/dialog';
 import { PartsService } from './shared/parts.service';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-parts',
@@ -20,7 +21,8 @@ export class PartsComponent {
 
   constructor(
     private matDialog: MatDialog,
-    private PartsService: PartsService
+    private PartsService: PartsService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -50,10 +52,17 @@ export class PartsComponent {
         data: { part: part },
       })
       .afterClosed()
-      .subscribe(() => this.getParts());
+      .subscribe(() => {
+        this.getParts();
+        this._snackBar.open(
+          `${part?.name || 'item'}
+          ${part?.id ? 'editado' : 'criado'} com sucesso!`,
+          'OK'
+        );
+      });
   }
 
-  deletePart(part: Parts) {
+  deletePart(part: Parts): void {
     this.matDialog
       .open(ModalComponent, {
         data: {
@@ -65,7 +74,10 @@ export class PartsComponent {
       .subscribe({
         next: (result) => {
           if (result)
-            this.PartsService.deletePart(part).subscribe(() => this.getParts());
+            this.PartsService.deletePart(part).subscribe(() => {
+              this.getParts();
+              this._snackBar.open(`${part.name} excluido com sucesso!`, 'OK');
+            });
         },
       });
   }

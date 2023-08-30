@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CostumersService } from './shared/costumers.service';
 import { Costumers } from './shared/costumers';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-costumers',
@@ -14,14 +16,15 @@ export class CostumersComponent {
 
   constructor(
     private matDialog: MatDialog,
-    private costumersService: CostumersService
+    private costumersService: CostumersService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.getCostumer();
+    this.getCostumers();
   }
 
-  getCostumer(): void {
+  getCostumers(): void {
     this.costumersService.getCostumers().subscribe({
       next: (costumers) => {
         this.costumers = costumers;
@@ -37,10 +40,27 @@ export class CostumersComponent {
     });
   }
 
-  deleteCostumer(costumer: Costumers) {
-    this.costumersService
-      .deleteCostumer(costumer)
-      .subscribe((costumer) => console.log(costumer));
+  deleteCostumer(costumers: Costumers): void {
+    this.matDialog
+      .open(ModalComponent, {
+        data: {
+          message: `Deseja mesmo excluir o item ${costumers.name}?`,
+          buttons: true,
+        },
+      })
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result)
+            this.costumersService.deleteCostumer(costumers).subscribe(() => {
+              this.getCostumers();
+              this._snackBar.open(
+                `${costumers.name} excluido com sucesso!`,
+                'OK'
+              );
+            });
+        },
+      });
   }
 
   async openCostumer(costumer?: Costumers) {
@@ -52,6 +72,13 @@ export class CostumersComponent {
         data: { costumer: costumer },
       })
       .afterClosed()
-      .subscribe(() => this.getCostumer());
+      .subscribe(() => {
+        this.getCostumers();
+        this._snackBar.open(
+          `${costumer?.name || 'item'}
+          ${costumer?.id ? 'editado' : 'criado'} com sucesso!`,
+          'OK'
+        );
+      });
   }
 }
