@@ -1,0 +1,12 @@
+<div class="modal">
+  <div class="right">
+    <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </div>
+  <h2>{{ data.message }}</h2>
+  <ng-container *ngIf="data.buttons">
+    <div class="buttons">
+      <button mat-raised-button color="primary" (click)="confirm()">Sim</button>
+      <button mat-raised-button color="warn" mat-dialog-close>Não</button>
+    </div>
+  </ng-container>
+</div>

@@ -1,34 +1,6 @@
 {
   "costumers": [
     {
-      "id": 1,
-      "name": "aaa",
-      "address": "Rau boa noite",
-      "email": "joao.silva@example.com",
-      "telephone": "+1 (123) 2222"
-    },
-    {
-      "id": 2,
-      "name": "Maria Santossss",
-      "address": "Avenida B, 456",
-      "email": "maria.santos@example.com",
-      "telephone": "+1 (234) 567-8901"
-    },
-    {
-      "id": 3,
-      "name": "Pedro Oliveira",
-      "address": "Rua C, 789",
-      "email": "pedro.oliveira@example.com",
-      "telephone": "+1 (345) 678-9012"
-    },
-    {
-      "id": 4,
-      "name": "Ana Rodrigues",
-      "address": "Avenida D, 012",
-      "email": "ana.rodrigues@example.com",
-      "telephone": "+1 (456) 789-0123"
-    },
-    {
       "id": 5,
       "name": "Carlos Costa",
       "address": "Rua E, 345",
@@ -236,36 +208,6 @@
       "manufacturingYear": 2022,
       "unitPrice": 89.75,
       "location": "Shelf M-13"
-    },
-    {
-      "id": 14,
-      "name": "Pressure Control Valve",
-      "quantity": 6,
-      "manufacturer": "PressureControl",
-      "model": "555PQR",
-      "manufacturingYear": 2021,
-      "unitPrice": 42.3,
-      "location": "Shelf N-14"
-    },
-    {
-      "id": 15,
-      "name": "Fan Motor",
-      "quantity": 11,
-      "manufacturer": "MotorTech",
-      "model": "888VWX",
-      "manufacturingYear": 2022,
-      "unitPrice": 56.9,
-      "location": "Shelf O-15"
-    },
-    {
-      "name": "Testando aqui",
-      "quantity": "5",
-      "manufacturer": "Nice",
-      "model": "Olá",
-      "manufacturingYear": "Okay",
-      "unitPrice": "OKay",
-      "location": "dddd",
-      "id": 16
     }
   ],
   "modules": [

@@ -12,11 +12,6 @@ export class CostumersComponent {
   costumers!: Costumers[];
   costumerName: string = '';
 
-  page: any = {
-    pageIndex: 0,
-    pageSize: 10,
-  };
-
   constructor(
     private matDialog: MatDialog,
     private costumersService: CostumersService

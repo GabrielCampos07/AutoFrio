@@ -1,3 +1,43 @@
+@use "@angular/material" as mat;
+@use "app/core/scss/build-theme.scss" as theme;
+
+@include mat.core();
+
+$primary: #739ecf;
+$secondary: #2494ae;
+$warn: #f00;
+
+:root {
+  --primary: #739ecf;
+  --secondary: #2494ae;
+}
+
+$primary-color: theme.build($primary);
+$secondary-color: theme.build($secondary);
+$warn-color: theme.build($warn);
+
+$AutoFrio-typography: mat.define-typography-config(
+  $font-family: "Roboto",
+);
+
+$AutoFrio-primary: mat.define-palette($primary-color);
+$AutoFrio-accent: mat.define-palette($secondary-color);
+
+$AutoFrio-warn: mat.define-palette($warn-color);
+
+$AutoFrio-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $AutoFrio-primary,
+      accent: $AutoFrio-accent,
+      warn: $AutoFrio-warn,
+    ),
+    typography: $AutoFrio-typography,
+  )
+);
+
+@include mat.all-component-themes($AutoFrio-theme);
+
 html,
 body {
   height: 100%;

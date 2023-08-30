@@ -17,7 +17,7 @@ import {
 
 @NgModule({
   declarations: [],
-  imports: [],
+  imports: [MatDialogModule],
   exports: [
     MatCardModule,
     MatFormFieldModule,

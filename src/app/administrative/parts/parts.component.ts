@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Parts } from './shared/parts';
 import { MatDialog } from '@angular/material/dialog';
 import { PartsService } from './shared/parts.service';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-parts',
@@ -23,10 +24,10 @@ export class PartsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getPart();
+    this.getParts();
   }
 
-  getPart(): void {
+  getParts(): void {
     this.PartsService.getParts().subscribe({
       next: (parts) => {
         this.parts = parts;
@@ -49,10 +50,23 @@ export class PartsComponent {
         data: { part: part },
       })
       .afterClosed()
-      .subscribe(() => this.getPart());
+      .subscribe(() => this.getParts());
   }
 
   deletePart(part: Parts) {
-    this.PartsService.deletePart(part).subscribe((part) => console.log(part));
+    this.matDialog
+      .open(ModalComponent, {
+        data: {
+          message: `Deseja mesmo excluir o item ${part.name}?`,
+          buttons: true,
+        },
+      })
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result)
+            this.PartsService.deletePart(part).subscribe(() => this.getParts());
+        },
+      });
   }
 }

@@ -1,0 +1,30 @@
+.modal {
+  width: 588px;
+  padding: 45px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+  position: relative;
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  img {
+    display: block;
+    margin: auto;
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    width: 100%;
+  }
+}
