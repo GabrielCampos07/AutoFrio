@@ -1,0 +1,84 @@
+<div class="dialog" *ngIf="part">
+  <div class="buttons">
+    <h2>{{ !part.id ? "Register" : "Edit" }}</h2>
+    <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </div>
+  <div>
+    <app-form #form>
+      <div class="forms">
+        <app-input
+          [(ngModel)]="part.name!"
+          label="Name"
+          [required]="true"
+          name="Name"
+          ngDefaultControl
+        >
+          <span required>Name is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="part.quantity!"
+          label="Quantity"
+          [required]="true"
+          name="Quantity"
+          ngDefaultControl
+          type="number"
+        >
+          <span required>Quantity is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="part.manufacturer!"
+          label="Manufacturer"
+          [required]="true"
+          name="Manufacturer"
+          ngDefaultControl
+        >
+        </app-input>
+
+        <app-input
+          [(ngModel)]="part.model!"
+          label="Model"
+          [required]="true"
+          name="Model"
+          ngDefaultControl
+          ><span required>Model is required!</span></app-input
+        >
+
+        <app-input
+          [(ngModel)]="part.manufacturingYear!"
+          label="ManufacturingYear"
+          [required]="true"
+          name="ManufacturingYear"
+          type="number"
+          ngDefaultControl
+          ><span required>ManufacturingYear is required!</span></app-input
+        >
+
+        <app-input
+          [(ngModel)]="part.unitPrice!"
+          label="UnitPrice"
+          [required]="true"
+          name="UnitPrice"
+          ngDefaultControl
+          type="number"
+          ><span required>UnitPrice is required!</span></app-input
+        >
+
+        <app-input
+          [(ngModel)]="part.location!"
+          label="Location"
+          [required]="true"
+          name="Location"
+          ngDefaultControl
+          ><span required>Location is required!</span></app-input
+        >
+      </div>
+    </app-form>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button (click)="savePart(form)">Save</button>
+  </div>
+</div>

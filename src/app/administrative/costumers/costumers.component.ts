@@ -27,24 +27,34 @@ export class CostumersComponent {
   }
 
   getCostumer(): void {
-    this.costumersService
-      .getCostumers()
-      .subscribe((costumers) => (this.costumers = costumers));
+    this.costumersService.getCostumers().subscribe({
+      next: (costumers) => {
+        this.costumers = costumers;
+      },
+    });
   }
 
   getCostumersByName(): void {
-    this.costumersService
-      .getCostumersByName(this.costumerName)
-      .subscribe((costumers) => (this.costumers = costumers));
+    this.costumersService.getCostumersByName(this.costumerName).subscribe({
+      next: (costumers) => {
+        this.costumers = costumers;
+      },
+    });
   }
 
-  async openCostumer(Costumer?: Costumers) {
+  deleteCostumer(costumer: Costumers) {
+    this.costumersService
+      .deleteCostumer(costumer)
+      .subscribe((costumer) => console.log(costumer));
+  }
+
+  async openCostumer(costumer?: Costumers) {
     const { FormularioComponent } = await import(
       './formulario/formulario.component'
     );
     this.matDialog
       .open(FormularioComponent, {
-        data: { costumer: Costumer },
+        data: { costumer: costumer },
       })
       .afterClosed()
       .subscribe(() => this.getCostumer());

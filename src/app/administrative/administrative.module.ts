@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CostumersComponent } from './costumers/costumers.component';
-import { PartsComponent } from './parts/parts.component';
+
+import { SharedModule } from '../shared/shared.module';
+import { PartsModule } from './parts/parts.module';
+import { CostumersModule } from './costumers/costumers.module';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [CostumersComponent, PartsComponent],
+  imports: [CommonModule, SharedModule, PartsModule, CostumersModule],
+  declarations: [],
 })
 export class AdministrativeModule {}

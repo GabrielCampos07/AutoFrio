@@ -28,4 +28,8 @@ export class CostumersService {
       ? this.http.put(`/${this.route}/${costumer.id}`, costumer)
       : this.http.post(`/${this.route}`, costumer);
   }
+
+  deleteCostumer(costumer: Costumers) {
+    return this.http.delete(`/${this.route}/${costumer.id}`);
+  }
 }

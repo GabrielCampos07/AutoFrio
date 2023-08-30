@@ -104,75 +104,168 @@
       "address": "Rua O, 345",
       "email": "larissa.nunes@example.com",
       "telephone": "+1 (567) 890-1234"
-    },
-    {
-      "name": "BOA NOITE",
-      "address": "APENAS ESTOU AQUI",
-      "email": "DJIADOWP@GMAIL.COM",
-      "telephone": "1299999999",
-      "id": 16
     }
   ],
-  "pecas": [
+  "parts": [
     {
-      "position": 1,
-      "name": "Hydrogen",
-      "weight": 1.0079,
-      "symbol": "H"
+      "id": 1,
+      "name": "Air Conditioning Compressor",
+      "quantity": 10,
+      "manufacturer": "ACME Corp",
+      "model": "123ABC",
+      "manufacturingYear": 2022,
+      "unitPrice": 250,
+      "location": "Shelf A-1"
     },
     {
-      "position": 2,
-      "name": "Helium",
-      "weight": 4.0026,
-      "symbol": "He"
+      "id": 2,
+      "name": "Condenser",
+      "quantity": 20,
+      "manufacturer": "CoolTech",
+      "model": "456XYZ",
+      "manufacturingYear": 2021,
+      "unitPrice": 120.5,
+      "location": "Shelf B-2"
     },
     {
-      "position": 3,
-      "name": "Lithium",
-      "weight": 6.941,
-      "symbol": "Li"
+      "id": 3,
+      "name": "Evaporator",
+      "quantity": 15,
+      "manufacturer": "AirFlow",
+      "model": "789PQR",
+      "manufacturingYear": 2022,
+      "unitPrice": 180,
+      "location": "Shelf C-3"
     },
     {
-      "position": 4,
-      "name": "Beryllium",
-      "weight": 9.0122,
-      "symbol": "Be"
+      "id": 4,
+      "name": "Expansion Valve",
+      "quantity": 8,
+      "manufacturer": "FlowControl",
+      "model": "555LMN",
+      "manufacturingYear": 2021,
+      "unitPrice": 35.5,
+      "location": "Shelf D-4"
     },
     {
-      "position": 5,
-      "name": "Boron",
-      "weight": 10.811,
-      "symbol": "B"
+      "id": 5,
+      "name": "Cabin Air Filter",
+      "quantity": 30,
+      "manufacturer": "CleanAir",
+      "model": "222UVW",
+      "manufacturingYear": 2022,
+      "unitPrice": 12,
+      "location": "Shelf E-5"
     },
     {
-      "position": 6,
-      "name": "Carbon",
-      "weight": 12.0107,
-      "symbol": "C"
+      "id": 6,
+      "name": "Air Conditioning Fan",
+      "quantity": 12,
+      "manufacturer": "FanTech",
+      "model": "777XYZ",
+      "manufacturingYear": 2021,
+      "unitPrice": 45.75,
+      "location": "Shelf F-6"
     },
     {
-      "position": 7,
-      "name": "Nitrogen",
-      "weight": 14.0067,
-      "symbol": "N"
+      "id": 7,
+      "name": "Air Temperature Sensor",
+      "quantity": 5,
+      "manufacturer": "TempSense",
+      "model": "888ABC",
+      "manufacturingYear": 2022,
+      "unitPrice": 18.9,
+      "location": "Shelf G-7"
     },
     {
-      "position": 8,
-      "name": "Oxygen",
-      "weight": 15.9994,
-      "symbol": "O"
+      "id": 8,
+      "name": "Air Conditioning Hose",
+      "quantity": 25,
+      "manufacturer": "FlexFlow",
+      "model": "999DEF",
+      "manufacturingYear": 2021,
+      "unitPrice": 8.5,
+      "location": "Shelf H-8"
     },
     {
-      "position": 9,
-      "name": "Fluorine",
-      "weight": 18.9984,
-      "symbol": "F"
+      "id": 9,
+      "name": "Air Conditioning Control Panel",
+      "quantity": 18,
+      "manufacturer": "ControlMaster",
+      "model": "333HIJ",
+      "manufacturingYear": 2022,
+      "unitPrice": 64.2,
+      "location": "Shelf I-9"
     },
     {
-      "position": 10,
-      "name": "Neon",
-      "weight": 20.1797,
-      "symbol": "Ne"
+      "id": 10,
+      "name": "Compressor Pulley Bearing",
+      "quantity": 7,
+      "manufacturer": "BearingTech",
+      "model": "111KLM",
+      "manufacturingYear": 2021,
+      "unitPrice": 22.75,
+      "location": "Shelf J-10"
+    },
+    {
+      "id": 11,
+      "name": "High-Pressure Tube",
+      "quantity": 14,
+      "manufacturer": "PressureFlow",
+      "model": "444NOP",
+      "manufacturingYear": 2022,
+      "unitPrice": 28,
+      "location": "Shelf K-11"
+    },
+    {
+      "id": 12,
+      "name": "Low-Pressure Tube",
+      "quantity": 13,
+      "manufacturer": "LowPressure",
+      "model": "666QRS",
+      "manufacturingYear": 2021,
+      "unitPrice": 24.5,
+      "location": "Shelf L-12"
+    },
+    {
+      "id": 13,
+      "name": "Compressor Clutch",
+      "quantity": 9,
+      "manufacturer": "ClutchTech",
+      "model": "777XYZ",
+      "manufacturingYear": 2022,
+      "unitPrice": 89.75,
+      "location": "Shelf M-13"
+    },
+    {
+      "id": 14,
+      "name": "Pressure Control Valve",
+      "quantity": 6,
+      "manufacturer": "PressureControl",
+      "model": "555PQR",
+      "manufacturingYear": 2021,
+      "unitPrice": 42.3,
+      "location": "Shelf N-14"
+    },
+    {
+      "id": 15,
+      "name": "Fan Motor",
+      "quantity": 11,
+      "manufacturer": "MotorTech",
+      "model": "888VWX",
+      "manufacturingYear": 2022,
+      "unitPrice": 56.9,
+      "location": "Shelf O-15"
+    },
+    {
+      "name": "Testando aqui",
+      "quantity": "5",
+      "manufacturer": "Nice",
+      "model": "Olá",
+      "manufacturingYear": "Okay",
+      "unitPrice": "OKay",
+      "location": "dddd",
+      "id": 16
     }
   ],
   "modules": [
@@ -187,9 +280,9 @@
       "icon": "person_search"
     },
     {
-      "route": "products",
-      "description": "Products",
-      "icon": "store_mall_directory"
+      "route": "parts",
+      "description": "Parts",
+      "icon": "build"
     }
   ]
 }
