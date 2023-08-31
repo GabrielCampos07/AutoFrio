@@ -4,6 +4,7 @@ import { Costumers } from './shared/costumers';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import { Observable, concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-costumers',
@@ -49,17 +50,15 @@ export class CostumersComponent {
         },
       })
       .afterClosed()
-      .subscribe({
-        next: (result) => {
-          if (result)
-            this.costumersService.deleteCostumer(costumers).subscribe(() => {
-              this.getCostumers();
-              this._snackBar.open(
-                `${costumers.name} excluido com sucesso!`,
-                'OK'
-              );
-            });
-        },
+      .pipe(
+        concatMap((result) => {
+          if (result) return this.costumersService.deleteCostumer(costumers);
+          return result;
+        })
+      )
+      .subscribe(() => {
+        this.getCostumers();
+        this._snackBar.open(`${costumers.name} excluido com sucesso!`, 'OK');
       });
   }
 

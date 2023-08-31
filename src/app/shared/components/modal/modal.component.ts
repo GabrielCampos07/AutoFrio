@@ -27,8 +27,4 @@ export class ModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-
-  confirm(): void {
-    this.dialogRef.close('ok');
-  }
 }

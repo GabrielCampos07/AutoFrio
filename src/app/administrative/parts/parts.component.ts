@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PartsService } from './shared/parts.service';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-parts',
@@ -45,6 +46,27 @@ export class PartsComponent {
     });
   }
 
+  deletePart(part: Parts): void {
+    this.matDialog
+      .open(ModalComponent, {
+        data: {
+          message: `Deseja mesmo excluir o item ${part.name}?`,
+          buttons: true,
+        },
+      })
+      .afterClosed()
+      .pipe(
+        concatMap((result) => {
+          if (result) return this.PartsService.deletePart(part);
+          return result;
+        })
+      )
+      .subscribe(() => {
+        this.getParts();
+        this._snackBar.open(`${part.name} excluido com sucesso!`, 'OK');
+      });
+  }
+
   async openPart(part?: Parts) {
     const { FormsComponent } = await import('./forms/forms.component');
     this.matDialog
@@ -59,26 +81,6 @@ export class PartsComponent {
           ${part?.id ? 'editado' : 'criado'} com sucesso!`,
           'OK'
         );
-      });
-  }
-
-  deletePart(part: Parts): void {
-    this.matDialog
-      .open(ModalComponent, {
-        data: {
-          message: `Deseja mesmo excluir o item ${part.name}?`,
-          buttons: true,
-        },
-      })
-      .afterClosed()
-      .subscribe({
-        next: (result) => {
-          if (result)
-            this.PartsService.deletePart(part).subscribe(() => {
-              this.getParts();
-              this._snackBar.open(`${part.name} excluido com sucesso!`, 'OK');
-            });
-        },
       });
   }
 }
