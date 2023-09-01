@@ -66,8 +66,7 @@ export class PartsComponent {
       .afterClosed()
       .pipe(
         switchMap((result) => {
-          if (result) return this.PartsService.delete(part);
-          return result;
+          return result ? this.PartsService.delete(part) : result;
         })
       )
       .subscribe(() => {

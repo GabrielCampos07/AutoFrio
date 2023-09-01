@@ -64,8 +64,7 @@ export class CostumersComponent {
       .afterClosed()
       .pipe(
         switchMap((result) => {
-          if (result) return this.costumersService.delete(costumers);
-          return result;
+          return result ? this.costumersService.delete(costumers) : result;
         })
       )
       .subscribe(() => {
