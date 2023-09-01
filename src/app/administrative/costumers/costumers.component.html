@@ -8,10 +8,8 @@
       <div class="content">
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="costumerName" />
+          <input matInput #input />
         </mat-form-field>
-
-        <app-search-button (click)="getCostumersByName()"></app-search-button>
       </div>
     </app-filter-button>
   </div>
@@ -21,7 +19,7 @@
     </button>
   </div>
 </div>
-<ng-container *ngIf="costumers">
+<ng-container *ngIf="costumers$ | async as costumers">
   <app-table [data]="costumers" [length]="costumers.length">
     <div t-head>ID</div>
     <div *tableItem="let item">{{ item.id }}</div>

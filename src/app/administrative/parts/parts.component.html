@@ -8,10 +8,8 @@
       <div class="content">
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="partName" />
+          <input matInput #input />
         </mat-form-field>
-
-        <app-search-button (click)="getPartsByName()"></app-search-button>
       </div>
     </app-filter-button>
   </div>
@@ -21,7 +19,7 @@
     </button>
   </div>
 </div>
-<ng-container *ngIf="parts">
+<ng-container *ngIf="parts$ | async as parts">
   <app-table [data]="parts" [length]="parts.length" [page]="page">
     <div t-head>ID</div>
     <div *tableItem="let item">{{ item.id }}</div>
@@ -42,7 +40,7 @@
     <div *tableItem="let item">{{ item.manufacturingYear }}</div>
 
     <div t-head>UnitPrice</div>
-    <div *tableItem="let item">{{ item.unitPrice | currency : 'BRL' }}</div>
+    <div *tableItem="let item">{{ item.unitPrice | currency : "BRL" }}</div>
 
     <div t-head>Location</div>
     <div *tableItem="let item">{{ item.location }}</div>

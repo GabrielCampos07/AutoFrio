@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Parts } from './shared/parts';
 import { MatDialog } from '@angular/material/dialog';
 import { PartsService } from './shared/parts.service';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { concatMap } from 'rxjs';
+import {
+  Observable,
+  concat,
+  debounceTime,
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  switchMap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-parts',
@@ -12,13 +20,14 @@ import { concatMap } from 'rxjs';
   styleUrls: ['./parts.component.scss'],
 })
 export class PartsComponent {
-  parts!: Parts[];
-  partName: string = '';
+  parts$!: Observable<Parts[]>;
 
   page: any = {
     pageIndex: 0,
     pageSize: 10,
   };
+
+  @ViewChild('input') input!: ElementRef;
 
   constructor(
     private matDialog: MatDialog,
@@ -26,24 +35,24 @@ export class PartsComponent {
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
-    this.getParts();
+  ngAfterViewInit() {
+    const searchParts$: Observable<Parts[]> = fromEvent<any>(
+      this.input.nativeElement,
+      'keyup'
+    ).pipe(
+      map((event) => event.target.value),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap((search) => this.getParts(search))
+    );
+
+    const initialParts$ = this.getParts();
+
+    this.parts$ = concat(initialParts$, searchParts$);
   }
 
-  getParts(): void {
-    this.PartsService.getParts().subscribe({
-      next: (parts) => {
-        this.parts = parts;
-      },
-    });
-  }
-
-  getPartsByName(): void {
-    this.PartsService.getPartsByName(this.partName).subscribe({
-      next: (parts) => {
-        this.parts = parts;
-      },
-    });
+  getParts(name?: string): Observable<Parts[]> {
+    return this.PartsService.get(name);
   }
 
   deletePart(part: Parts): void {
@@ -56,8 +65,8 @@ export class PartsComponent {
       })
       .afterClosed()
       .pipe(
-        concatMap((result) => {
-          if (result) return this.PartsService.deletePart(part);
+        switchMap((result) => {
+          if (result) return this.PartsService.delete(part);
           return result;
         })
       )

@@ -23,7 +23,7 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit() {
     if (this.data.costumer) {
-      this.costumersService.getCostumer(this.data.costumer).subscribe({
+      this.costumersService.getById(this.data.costumer).subscribe({
         next: (costumers) => {
           this.costumer = costumers;
         },
@@ -34,7 +34,7 @@ export class FormularioComponent implements OnInit {
 
   saveCostumer(form: FormComponent): void {
     if (form.valid()) {
-      this.costumersService.saveCostumer(this.costumer).subscribe({
+      this.costumersService.save(this.costumer).subscribe({
         next: () => {
           this.dialogRef.close();
         },

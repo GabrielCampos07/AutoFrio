@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CostumersService } from './shared/costumers.service';
 import { Costumers } from './shared/costumers';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
-import { Observable, concatMap } from 'rxjs';
+import {
+  Observable,
+  concat,
+  concatMap,
+  debounceTime,
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  of,
+  switchMap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-costumers',
@@ -12,7 +22,7 @@ import { Observable, concatMap } from 'rxjs';
   styleUrls: ['./costumers.component.scss'],
 })
 export class CostumersComponent {
-  costumers!: Costumers[];
+  costumers$!: Observable<Costumers[]>;
   costumerName: string = '';
 
   constructor(
@@ -21,24 +31,26 @@ export class CostumersComponent {
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
-    this.getCostumers();
+  @ViewChild('input') input!: ElementRef;
+
+  ngAfterViewInit() {
+    const searchParts$: Observable<Costumers[]> = fromEvent<any>(
+      this.input.nativeElement,
+      'keyup'
+    ).pipe(
+      map((event) => event.target.value),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap((search) => this.getCostumers(search))
+    );
+
+    const initialParts$ = this.getCostumers();
+
+    this.costumers$ = concat(initialParts$, searchParts$);
   }
 
-  getCostumers(): void {
-    this.costumersService.getCostumers().subscribe({
-      next: (costumers) => {
-        this.costumers = costumers;
-      },
-    });
-  }
-
-  getCostumersByName(): void {
-    this.costumersService.getCostumersByName(this.costumerName).subscribe({
-      next: (costumers) => {
-        this.costumers = costumers;
-      },
-    });
+  getCostumers(name?: string): Observable<Costumers[]> {
+    return this.costumersService.get(name);
   }
 
   deleteCostumer(costumers: Costumers): void {
@@ -51,8 +63,8 @@ export class CostumersComponent {
       })
       .afterClosed()
       .pipe(
-        concatMap((result) => {
-          if (result) return this.costumersService.deleteCostumer(costumers);
+        switchMap((result) => {
+          if (result) return this.costumersService.delete(costumers);
           return result;
         })
       )

@@ -11,25 +11,23 @@ export class CostumersService {
 
   constructor(private http: Http) {}
 
-  getCostumers(): Observable<Costumers[]> {
-    return this.http.get(`/${this.route}`);
+  get(name?: string): Observable<Costumers[]> {
+    return name
+      ? this.http.get(`/${this.route}?name_like=${name}`)
+      : this.http.get(`/${this.route}`);
   }
 
-  getCostumer(costumers: Costumers): Observable<Costumers> {
+  getById(costumers: Costumers): Observable<Costumers> {
     return this.http.get(`/${this.route}/${costumers.id}`);
   }
 
-  getCostumersByName(name: string): Observable<Costumers[]> {
-    return this.http.get(`/${this.route}?name_like=${name}`);
-  }
-
-  saveCostumer(costumer: Costumers) {
+  save(costumer: Costumers) {
     return costumer.id
       ? this.http.put(`/${this.route}/${costumer.id}`, costumer)
       : this.http.post(`/${this.route}`, costumer);
   }
 
-  deleteCostumer(costumer: Costumers) {
+  delete(costumer: Costumers) {
     return this.http.delete(`/${this.route}/${costumer.id}`);
   }
 }

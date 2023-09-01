@@ -21,7 +21,7 @@ export class FormsComponent implements OnInit {
   ngOnInit() {
     if (this.data.part) {
       this.partsService
-        .getPart(this.data.part)
+        .getById(this.data.part)
         .subscribe((part) => (this.part = part));
       return;
     }
@@ -29,7 +29,7 @@ export class FormsComponent implements OnInit {
 
   savePart(form: FormComponent): void {
     if (form.valid()) {
-      this.partsService.savePart(this.part).subscribe({
+      this.partsService.save(this.part).subscribe({
         next: () => {
           this.dialogRef.close();
         },
