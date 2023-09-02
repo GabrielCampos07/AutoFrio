@@ -2,8 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CostumersService } from './shared/costumers.service';
 import { Costumers } from './shared/costumers';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import {
   Observable,
   concat,
@@ -12,12 +10,16 @@ import {
   fromEvent,
   map,
   switchMap,
+  tap,
 } from 'rxjs';
+import { Dialogs } from 'src/app/shared/utils/dialogs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-costumers',
   templateUrl: './costumers.component.html',
   styleUrls: ['./costumers.component.scss'],
+  providers: [Dialogs],
 })
 export class CostumersComponent {
   costumers$!: Observable<Costumers[]>;
@@ -51,26 +53,29 @@ export class CostumersComponent {
   }
 
   deleteCostumer(costumers: Costumers): void {
-    this.matDialog
-      .open(ModalComponent, {
-        data: {
-          message: `Deseja mesmo excluir o item ${costumers.name}?`,
-          buttons: true,
-        },
-      })
+    Dialogs.confirmDeleteDialog(this.matDialog, costumers.name)
       .afterClosed()
       .pipe(
-        switchMap((result) =>
-          result ? this.costumersService.delete(costumers) : result
-        ),
-        switchMap(() => (this.costumers$ = this.getCostumers()))
+        switchMap((result) => {
+          if (result) {
+            return this.costumersService.delete(costumers).pipe(
+              tap(() =>
+                Dialogs.showSuccessDeleteSnackbar(
+                  this._snackBar,
+                  costumers.name!
+                )
+              ),
+              switchMap(() => this.refreshCostumersList())
+            );
+          }
+          return result;
+        })
       )
-      .subscribe(() => {
-        this._snackBar.open(`${costumers.name} excluido com sucesso!`, 'OK');
-        setTimeout(() => {
-          this._snackBar.dismiss();
-        }, 3000);
-      });
+      .subscribe();
+  }
+
+  refreshCostumersList(): Observable<Costumers[]> {
+    return (this.costumers$ = this.getCostumers());
   }
 
   async openCostumer(costumer?: Costumers) {
@@ -83,19 +88,21 @@ export class CostumersComponent {
       })
       .afterClosed()
       .pipe(
-        switchMap((result) =>
-          result ? (this.costumers$ = this.getCostumers()) : result
-        )
+        switchMap((result) => {
+          if (result) {
+            return (this.costumers$ = this.getCostumers()).pipe(
+              tap(() =>
+                Dialogs.showSuccessEditSnackBar(
+                  this._snackBar,
+                  costumer?.name,
+                  costumer?.id
+                )
+              )
+            );
+          }
+          return result;
+        })
       )
-      .subscribe(() => {
-        this._snackBar.open(
-          `${costumer?.name || 'item'}
-            ${costumer?.id ? 'editado' : 'criado'} com sucesso!`,
-          'OK'
-        );
-        setTimeout(() => {
-          this._snackBar.dismiss();
-        }, 3000);
-      });
+      .subscribe();
   }
 }

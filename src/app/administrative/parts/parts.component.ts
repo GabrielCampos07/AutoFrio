@@ -12,12 +12,15 @@ import {
   fromEvent,
   map,
   switchMap,
+  tap,
 } from 'rxjs';
+import { Dialogs } from 'src/app/shared/utils/dialogs';
 
 @Component({
   selector: 'app-parts',
   templateUrl: './parts.component.html',
   styleUrls: ['./parts.component.scss'],
+  providers: [Dialogs],
 })
 export class PartsComponent {
   parts$!: Observable<Parts[]>;
@@ -51,26 +54,22 @@ export class PartsComponent {
   }
 
   deletePart(part: Parts): void {
-    this.matDialog
-      .open(ModalComponent, {
-        data: {
-          message: `Deseja mesmo excluir o item ${part.name}?`,
-          buttons: true,
-        },
-      })
+    Dialogs.confirmDeleteDialog(this.matDialog, part.name)
       .afterClosed()
       .pipe(
         switchMap((result) => {
-          return result ? this.PartsService.delete(part) : result;
-        }),
-        switchMap(() => (this.parts$ = this.getParts()))
+          if (result) {
+            return this.PartsService.delete(part).pipe(
+              tap(() =>
+                Dialogs.showSuccessDeleteSnackbar(this._snackBar, part.name!)
+              ),
+              switchMap(() => (this.parts$ = this.getParts()))
+            );
+          }
+          return result;
+        })
       )
-      .subscribe(() => {
-        this._snackBar.open(`${part.name} excluido com sucesso!`, 'OK');
-        setTimeout(() => {
-          this._snackBar.dismiss();
-        }, 3000);
-      });
+      .subscribe();
   }
 
   async openPart(part?: Parts) {
@@ -81,19 +80,21 @@ export class PartsComponent {
       })
       .afterClosed()
       .pipe(
-        switchMap((result) =>
-          result ? (this.parts$ = this.getParts()) : result
-        )
+        switchMap((result) => {
+          if (result) {
+            return (this.parts$ = this.getParts()).pipe(
+              tap(() =>
+                Dialogs.showSuccessEditSnackBar(
+                  this._snackBar,
+                  part?.name,
+                  part?.id
+                )
+              )
+            );
+          }
+          return result;
+        })
       )
-      .subscribe(() => {
-        this._snackBar.open(
-          `${part?.name || 'item'}
-          ${part?.id ? 'editado' : 'criado'} com sucesso!`,
-          'OK'
-        );
-        setTimeout(() => {
-          this._snackBar.dismiss();
-        }, 3000);
-      });
+      .subscribe();
   }
 }
