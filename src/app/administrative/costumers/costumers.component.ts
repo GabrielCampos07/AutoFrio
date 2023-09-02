@@ -23,7 +23,6 @@ import {
 })
 export class CostumersComponent {
   costumers$!: Observable<Costumers[]>;
-  costumerName: string = '';
 
   constructor(
     private matDialog: MatDialog,
