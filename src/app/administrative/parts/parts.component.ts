@@ -22,11 +22,6 @@ import {
 export class PartsComponent {
   parts$!: Observable<Parts[]>;
 
-  page: any = {
-    pageIndex: 0,
-    pageSize: 10,
-  };
-
   @ViewChild('input') input!: ElementRef;
 
   constructor(

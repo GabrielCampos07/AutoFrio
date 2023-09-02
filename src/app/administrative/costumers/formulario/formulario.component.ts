@@ -23,12 +23,9 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit() {
     if (this.data.costumer) {
-      this.costumersService.getById(this.data.costumer).subscribe({
-        next: (costumers) => {
-          this.costumer = costumers;
-        },
-      });
-      return;
+      this.costumersService
+        .getById(this.data.costumer)
+        .subscribe((costumers) => (this.costumer = costumers));
     }
   }
 

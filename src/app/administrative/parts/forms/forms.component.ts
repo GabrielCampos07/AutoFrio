@@ -23,7 +23,6 @@ export class FormsComponent implements OnInit {
       this.partsService
         .getById(this.data.part)
         .subscribe((part) => (this.part = part));
-      return;
     }
   }
 

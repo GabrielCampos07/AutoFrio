@@ -20,7 +20,7 @@
   </div>
 </div>
 <ng-container *ngIf="parts$ | async as parts">
-  <app-table [data]="parts" [length]="parts.length" [page]="page">
+  <app-table [data]="parts" [length]="parts.length">
     <div t-head>ID</div>
     <div *tableItem="let item">{{ item.id }}</div>
 
