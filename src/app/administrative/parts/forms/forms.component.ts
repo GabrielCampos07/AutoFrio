@@ -29,14 +29,7 @@ export class FormsComponent implements OnInit {
 
   savePart(form: FormComponent): void {
     if (form.valid()) {
-      this.partsService.save(this.part).subscribe({
-        next: () => {
-          this.dialogRef.close();
-        },
-        error: () => {
-          alert('error');
-        },
-      });
+      this.partsService.save(this.part).subscribe();
     }
   }
 }

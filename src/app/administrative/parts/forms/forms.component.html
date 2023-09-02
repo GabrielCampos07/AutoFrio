@@ -79,6 +79,12 @@
 
   <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button (click)="savePart(form)">Save</button>
+    <button
+      mat-raised-button
+      (click)="savePart(form)"
+      [mat-dialog-close]="'ok'"
+    >
+      Save
+    </button>
   </div>
 </div>

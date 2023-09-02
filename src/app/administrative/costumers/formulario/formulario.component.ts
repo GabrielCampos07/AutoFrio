@@ -34,14 +34,7 @@ export class FormularioComponent implements OnInit {
 
   saveCostumer(form: FormComponent): void {
     if (form.valid()) {
-      this.costumersService.save(this.costumer).subscribe({
-        next: () => {
-          this.dialogRef.close();
-        },
-        error: () => {
-          alert('error');
-        },
-      });
+      this.costumersService.save(this.costumer).subscribe();
     }
   }
 }

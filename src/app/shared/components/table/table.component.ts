@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChildren,
@@ -6,10 +7,7 @@ import {
   QueryList,
   ViewChild,
 } from '@angular/core';
-import {
-  MatTableDataSource,
-  MatTableDataSourcePaginator,
-} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { TableHeaderComponent } from './components/header.component';
 import { TableItemDirective } from './components/table-item.directive';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,6 +17,7 @@ import { MatSort } from '@angular/material/sort';
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
   @Input() public get data(): unknown[] {

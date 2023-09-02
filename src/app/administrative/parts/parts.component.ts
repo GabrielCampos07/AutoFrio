@@ -67,11 +67,14 @@ export class PartsComponent {
       .pipe(
         switchMap((result) => {
           return result ? this.PartsService.delete(part) : result;
-        })
+        }),
+        switchMap(() => (this.parts$ = this.getParts()))
       )
       .subscribe(() => {
-        this.getParts();
         this._snackBar.open(`${part.name} excluido com sucesso!`, 'OK');
+        setTimeout(() => {
+          this._snackBar.dismiss();
+        }, 3000);
       });
   }
 
@@ -82,13 +85,20 @@ export class PartsComponent {
         data: { part: part },
       })
       .afterClosed()
+      .pipe(
+        switchMap((result) =>
+          result ? (this.parts$ = this.getParts()) : result
+        )
+      )
       .subscribe(() => {
-        this.getParts();
         this._snackBar.open(
           `${part?.name || 'item'}
           ${part?.id ? 'editado' : 'criado'} com sucesso!`,
           'OK'
         );
+        setTimeout(() => {
+          this._snackBar.dismiss();
+        }, 3000);
       });
   }
 }

@@ -7,12 +7,10 @@ import { ModalComponent } from 'src/app/shared/components/modal/modal.component'
 import {
   Observable,
   concat,
-  concatMap,
   debounceTime,
   distinctUntilChanged,
   fromEvent,
   map,
-  of,
   switchMap,
 } from 'rxjs';
 
@@ -62,13 +60,16 @@ export class CostumersComponent {
       })
       .afterClosed()
       .pipe(
-        switchMap((result) => {
-          return result ? this.costumersService.delete(costumers) : result;
-        })
+        switchMap((result) =>
+          result ? this.costumersService.delete(costumers) : result
+        ),
+        switchMap(() => (this.costumers$ = this.getCostumers()))
       )
       .subscribe(() => {
-        this.getCostumers();
         this._snackBar.open(`${costumers.name} excluido com sucesso!`, 'OK');
+        setTimeout(() => {
+          this._snackBar.dismiss();
+        }, 3000);
       });
   }
 
@@ -81,13 +82,20 @@ export class CostumersComponent {
         data: { costumer: costumer },
       })
       .afterClosed()
+      .pipe(
+        switchMap((result) =>
+          result ? (this.costumers$ = this.getCostumers()) : result
+        )
+      )
       .subscribe(() => {
-        this.getCostumers();
         this._snackBar.open(
           `${costumer?.name || 'item'}
-          ${costumer?.id ? 'editado' : 'criado'} com sucesso!`,
+            ${costumer?.id ? 'editado' : 'criado'} com sucesso!`,
           'OK'
         );
+        setTimeout(() => {
+          this._snackBar.dismiss();
+        }, 3000);
       });
   }
 }
