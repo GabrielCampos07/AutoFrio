@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Module } from 'src/app/shared/models/module';
-import { ModulesService } from 'src/app/shared/services/modules.service';
+import { Module } from 'src/app/core/layout/menu/shared/module';
+import { ModulesService } from 'src/app/core/layout/menu/shared/modules.service';
 
 @Component({
   selector: 'app-menu',
