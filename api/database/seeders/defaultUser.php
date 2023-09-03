@@ -14,17 +14,17 @@ class DefaultUser extends Seeder
     public function run(): void
     {
         User::create([
-            'nome' => 'admin',
+            'name' => 'admin',
             'email' => 'admin@admin.com',
-            'senha' => bcrypt('123'),
-            'cargo' => 'admin',
+            'password' => bcrypt('123'),
+            'role' => 'admin',
         ]);
         
         User::create([
-            'nome' => 'staff',
+            'name' => 'staff',
             'email' => 'staff@staff.com',
-            'senha' => bcrypt('123'),
-            'cargo' => 'staff',
+            'password' => bcrypt('123'),
+            'role' => 'staff',
         ]);
     }
 }

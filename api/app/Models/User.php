@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = "usuarios";
+    protected $table = "users";
 
     /**
      * The attributes that are mass assignable.
@@ -21,10 +21,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nome',
+        'name',
         'email',
-        'senha',
-        'cargo'
+        'password',
+        'role'
     ];
 
     /**
@@ -33,7 +33,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'senha',
+        'password',
         'remember_token',
     ];
 
@@ -43,7 +43,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'senha' => 'hashed'
+        'password' => 'hashed'
     ];
 
 
@@ -52,13 +52,13 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    public static function validacaoCriacaoUsuarios(Request $request) 
+    public static function userCreateValidation(Request $request) 
     {        
         return $request->validate([
-            'nome' => 'required|string',
+            'name' => 'required|string',
             'email' => 'required|string|unique:usuarios',
-            'senha' => 'required|string|confirmed',
-            'cargo' => 'in:admin,staff',
+            'password' => 'required|string|confirmed',
+            'role' => 'in:admin,staff',
         ]);
     }
 
@@ -67,13 +67,13 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    public static function validacaoEdicaoUsuarios(Request $request) 
+    public static function userEditValidation(Request $request) 
     {
         return $request->validate([
-            'nome' => 'string',
+            'name' => 'string',
             'email' => 'string|unique:users',
-            'senha' => 'string',
-            'cargo' => 'in:admin,staff',
+            'password' => 'string',
+            'role' => 'in:admin,staff',
         ]);
         
     }

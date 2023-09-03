@@ -10,23 +10,23 @@ class AuthController extends Controller
 {
     public function register(Request $request) {
         $fields = $request->validate([
-            'nome' => 'required|string',
+            'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'senha' => 'required|string|confirmed',
-            'cargo' => 'required|integer'
+            'password' => 'required|string|confirmed',
+            'role' => 'required|integer'
         ]);
 
-        $usuario = User::create([
-            'nome' => $fields['nome'],
+        $user = User::create([
+            'name' => $fields['name'],
             'email' => $fields['email'],
-            'senha' => bcrypt($fields['senha']),
-            'cargo' => $fields['cargo']
+            'password' => bcrypt($fields['password']),
+            'role' => $fields['role']
         ]);
 
-        $token = $usuario->createToken($request->nameToken)->plainTextToken;
+        $token = $user->createToken($request->nameToken)->plainTextToken;
 
         $response = [
-            'usuario' => $usuario,
+            'user' => $user,
             'token' => $token
         ];
 
@@ -37,20 +37,20 @@ class AuthController extends Controller
         
         $fields = $request->validate([
             'email' => 'required|string',
-            'senha' => 'required|string'
+            'password' => 'required|string'
         ]);
 
-        $usuario = User::where('email', $fields['email'])->first();
-        if (!$usuario || !Hash::check($fields['senha'], $usuario->senha)) {
+        $user = User::where('email', $fields['email'])->first();
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
-                'message' => 'E-mail ou senha invalidos.'
+                'message' => 'Invalid email or password.'
             ], 401);
         }
 
-        $token = $usuario->createToken('UsuarioLogado')->plainTextToken;
+        $token = $user->createToken('loginUser')->plainTextToken;
 
         $response = [
-            'user' => $usuario,
+            'user' => $user,
             'token' => $token
         ];
 
@@ -61,7 +61,7 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return response([
-            'message' => 'Usuario deslogado com sucesso.'
+            'message' => 'User disconnected successfully.'
         ], 200);
     }
 
