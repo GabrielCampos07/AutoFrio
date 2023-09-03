@@ -41,7 +41,7 @@ class AuthController extends Controller
         ]);
 
         $usuario = User::where('email', $fields['email'])->first();
-        if (!$usuario || !Hash::check($fields['senha'], $usuario->password)) {
+        if (!$usuario || !Hash::check($fields['senha'], $usuario->senha)) {
             return response([
                 'message' => 'E-mail ou senha invalidos.'
             ], 401);
