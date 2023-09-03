@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class defaultUser extends Seeder
+class DefaultUser extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,6 +19,7 @@ class defaultUser extends Seeder
             'senha' => bcrypt('123'),
             'cargo' => 'admin',
         ]);
+        
         User::create([
             'nome' => 'staff',
             'email' => 'staff@staff.com',
