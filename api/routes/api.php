@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CarBrandController;
+use App\Http\Controllers\CarModelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +16,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::group(['middleware' => ['auth:sanctum']], function() {
-    Route::post('/logout', [AuthController::class, 'logout']);
+Route::group(['middleware' => ['json.response']], function() {
+    Route::group(['middleware' => ['auth:sanctum']], function() {
+        Route::apiResources([
+            '/car/brand' => CarBrandController::class,
+            '/car/model' => CarModelController::class,
+        ]);
+        
+        Route::post('/logout', [ AuthController::class, 'logout']);
+    });
+    
+    Route::post('/register', [ AuthController::class, 'register']);
+    Route::post('/login', [ AuthController::class, 'login']);
+    
 });
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+

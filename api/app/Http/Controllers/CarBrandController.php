@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CarBrand;
+use Illuminate\Http\Request;
+
+class CarBrandController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return CarBrand::all();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $fields = CarBrand::carBrandCreateValidation($request);
+        $newCarBrand = CarBrand::Create($fields);
+
+        if ($newCarBrand) {
+            
+            return $newCarBrand;
+        }
+
+        return response(['message' => 'Error to create car brand.'], 404);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $carBrand)
+    {
+        $carBrand = CarBrand::find($carBrand);
+
+        if ($carBrand) {
+            
+            $carBrand->models;
+            return $carBrand;
+        }
+
+        return response(['message' => 'Car brand not found.'], 404);
+    }
+
+    /** 
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $carBrand)
+    {
+        $carBrand = CarBrand::find($carBrand);
+
+        if ($carBrand) {
+
+            $carBrand->update($request->all());
+            return $carBrand;
+        }
+
+        return response(['message' => ' Erro ao atualizar o testamento.'], 404);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $carBrand)
+    {
+        if (CarBrand::destroy($carBrand)) {
+            
+            return response(['message' => ' Testamento deletado com sucesso.'], 200);
+        }
+
+        return response(['message' => ' Erro ao deletar o testamento.'], 404);
+    }
+}

@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DefaultUser extends Seeder
 {
@@ -13,18 +13,16 @@ class DefaultUser extends Seeder
      */
     public function run(): void
     {
+        User::factory()
+            ->count(5)
+            ->create();
+        
         User::create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('123'),
             'role' => 'admin',
-        ]);
-        
-        User::create([
-            'name' => 'staff',
-            'email' => 'staff@staff.com',
-            'password' => bcrypt('123'),
-            'role' => 'staff',
+            'remember_token' => Str::random(10)
         ]);
     }
 }
