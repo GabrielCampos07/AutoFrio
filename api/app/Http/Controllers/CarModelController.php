@@ -12,6 +12,11 @@ class CarModelController extends Controller
      */
     public function index()
     {
+        $brandID = request('brandID');
+        if ($brandID) {
+            return CarModel::where('brand_id','=', $brandID)->get();
+        }
+
         return CarModel::all();
     }
 
