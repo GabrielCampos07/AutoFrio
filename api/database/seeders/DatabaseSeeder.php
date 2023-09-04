@@ -14,8 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DefaultUser::class,
-            carBrandSeeder::class,
-            carModelSeeder::class,
+            CarBrandSeeder::class,
+            CarModelSeeder::class,
+            ServiceSeeder::class,
         ]);
     }
 }
