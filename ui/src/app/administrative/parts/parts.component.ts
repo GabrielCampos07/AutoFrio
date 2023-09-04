@@ -14,13 +14,13 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { Dialogs } from 'src/app/shared/utils/dialogs';
+import { AlertService } from 'src/app/shared/services/alert.service';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-parts',
   templateUrl: './parts.component.html',
   styleUrls: ['./parts.component.scss'],
-  providers: [Dialogs],
 })
 export class PartsComponent {
   parts$!: Observable<Parts[]>;
@@ -30,7 +30,8 @@ export class PartsComponent {
   constructor(
     private matDialog: MatDialog,
     private PartsService: PartsService,
-    private _snackBar: MatSnackBar
+    private alertService: AlertService,
+    private dialogService: DialogService
   ) {}
 
   ngAfterViewInit() {
@@ -54,14 +55,15 @@ export class PartsComponent {
   }
 
   deletePart(part: Parts): void {
-    Dialogs.confirmDeleteDialog(this.matDialog, part.name)
+    this.dialogService
+      .dialog(`Deseja mesmo excluir o item ${part.name}?`, true)
       .afterClosed()
       .pipe(
         switchMap((result) => {
           if (result) {
             return this.PartsService.delete(part).pipe(
               tap(() =>
-                Dialogs.showSuccessDeleteSnackbar(this._snackBar, part.name!)
+                this.alertService.success(`${part.name} excluido com sucesso!`)
               ),
               switchMap(() => (this.parts$ = this.getParts()))
             );
@@ -84,10 +86,10 @@ export class PartsComponent {
           if (result) {
             return (this.parts$ = this.getParts()).pipe(
               tap(() =>
-                Dialogs.showSuccessEditSnackBar(
-                  this._snackBar,
-                  part?.name,
-                  part?.id
+                this.alertService.success(
+                  `${part?.name || 'item'} ${
+                    part?.id ? 'editado' : 'criado'
+                  } com sucesso!`
                 )
               )
             );

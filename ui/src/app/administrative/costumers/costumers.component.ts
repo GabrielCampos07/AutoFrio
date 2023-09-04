@@ -12,14 +12,13 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { Dialogs } from 'src/app/shared/utils/dialogs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertService } from 'src/app/shared/services/alert.service';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-costumers',
   templateUrl: './costumers.component.html',
   styleUrls: ['./costumers.component.scss'],
-  providers: [Dialogs],
 })
 export class CostumersComponent {
   costumers$!: Observable<Costumers[]>;
@@ -27,7 +26,8 @@ export class CostumersComponent {
   constructor(
     private matDialog: MatDialog,
     private costumersService: CostumersService,
-    private _snackBar: MatSnackBar
+    private alertService: AlertService,
+    private dialogService: DialogService
   ) {}
 
   @ViewChild('input') input!: ElementRef;
@@ -53,16 +53,16 @@ export class CostumersComponent {
   }
 
   deleteCostumer(costumers: Costumers): void {
-    Dialogs.confirmDeleteDialog(this.matDialog, costumers.name)
+    this.dialogService
+      .dialog(`Deseja mesmo excluir o item ${costumers.name}?`, true)
       .afterClosed()
       .pipe(
         switchMap((result) => {
           if (result) {
             return this.costumersService.delete(costumers).pipe(
               tap(() =>
-                Dialogs.showSuccessDeleteSnackbar(
-                  this._snackBar,
-                  costumers.name!
+                this.alertService.success(
+                  `${costumers.name} excluido com sucesso!`
                 )
               ),
               switchMap(() => this.refreshCostumersList())
@@ -92,10 +92,10 @@ export class CostumersComponent {
           if (result) {
             return (this.costumers$ = this.getCostumers()).pipe(
               tap(() =>
-                Dialogs.showSuccessEditSnackBar(
-                  this._snackBar,
-                  costumer?.name,
-                  costumer?.id
+                this.alertService.success(
+                  `${costumer?.name || 'item'} ${
+                    costumer?.id ? 'editado' : 'criado'
+                  } com sucesso!`
                 )
               )
             );
