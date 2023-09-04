@@ -37,7 +37,7 @@ class CarBrand extends Model
     /**
     * The validation to update a car model.
     */
-    public static function carBrandEditValidation(Request $request) 
+    public static function CarBrandUpdateValidation(Request $request) 
     {
         return $request->validate([
             'name' => 'string|unique:car_brand,name'

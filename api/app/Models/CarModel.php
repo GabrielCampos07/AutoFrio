@@ -50,7 +50,7 @@ class CarModel extends Model
     /**
     * The validation to update a car model.
     */
-    public static function carModelEditValidation(Request $request) 
+    public static function carModelUpdateValidation(Request $request) 
     {
         return $request->validate([
             'name' => 'string|unique:car_model,name',

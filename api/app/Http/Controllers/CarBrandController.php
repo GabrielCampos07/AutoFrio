@@ -53,14 +53,15 @@ class CarBrandController extends Controller
     public function update(Request $request, string $carBrand)
     {
         $carBrand = CarBrand::find($carBrand);
+        $fields = CarBrand::carBrandUpdateValidation($request);
 
         if ($carBrand) {
 
-            $carBrand->update($request->all());
+            $carBrand->update($fields);
             return $carBrand;
         }
 
-        return response(['message' => ' Erro ao atualizar o testamento.'], 404);
+        return response(['message' => ' Error to update.'], 404);
     }
 
     /**
@@ -70,9 +71,9 @@ class CarBrandController extends Controller
     {
         if (CarBrand::destroy($carBrand)) {
             
-            return response(['message' => ' Testamento deletado com sucesso.'], 200);
+            return response(['message' => 'Deleted with success.'], 200);
         }
 
-        return response(['message' => ' Erro ao deletar o testamento.'], 404);
+        return response(['message' => 'Error to delete.'], 404);
     }
 }

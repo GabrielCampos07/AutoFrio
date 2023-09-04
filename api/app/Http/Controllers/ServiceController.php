@@ -22,6 +22,7 @@ class ServiceController extends Controller
     {
         $fields = Service::serviceCreateValidation($request);
         $newService = Service::Create($fields);
+
         if ($newService) {
             return $newService;
         }
@@ -35,6 +36,7 @@ class ServiceController extends Controller
     public function show(string $service)
     {
         $service = Service::find($service);
+
         if ($service) {
             
             return $service;
@@ -49,8 +51,10 @@ class ServiceController extends Controller
     public function update(Request $request, string $service)
     {
         $service = Service::find($service);
+        $fields = Service::serviceUpdateValidation($request);
+
         if ($service) {
-            $service->update($request->all());
+            $service->update($fields);
 
             return $service;
         }

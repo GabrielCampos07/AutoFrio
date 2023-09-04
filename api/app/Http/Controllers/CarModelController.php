@@ -27,6 +27,7 @@ class CarModelController extends Controller
     {
         $fields = CarModel::carModelCreateValidation($request);
         $newCarModel = CarModel::Create($fields);
+
         if ($newCarModel) {
             return $newCarModel;
         }
@@ -55,8 +56,10 @@ class CarModelController extends Controller
     public function update(Request $request, string $carModel)
     {
         $carModel = CarModel::find($carModel);
+        $fields = CarModel::carModelUpdateValidation($request);
+
         if ($carModel) {
-            $carModel->update($request->all());
+            $carModel->update($fields);
 
             return $carModel;
         }

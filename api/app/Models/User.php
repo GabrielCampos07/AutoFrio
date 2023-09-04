@@ -67,7 +67,7 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    public static function userEditValidation(Request $request) 
+    public static function userUpdateValidation(Request $request) 
     {
         return $request->validate([
             'name' => 'string',

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('model_id');
             $table->unsignedBigInteger('brand_id');
-            $table->unsignedBigInteger('license_plate');
+            $table->string('license_plate');
             $table->integer('year');
             $table->integer('mileage');
             $table->string('color');

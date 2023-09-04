@@ -34,7 +34,7 @@ class Service extends Model
     /**
     * The validation to update a service.
     */
-    public static function serviceEditValidation(Request $request) 
+    public static function serviceUpdateValidation(Request $request) 
     {
         return $request->validate([
             'name' => 'string|unique:service,name'

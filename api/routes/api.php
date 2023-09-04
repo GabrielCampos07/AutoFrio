@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarBrandController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarModelController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::group(['middleware' => ['json.response']], function() {
         Route::apiResources([
             '/car/brand' => CarBrandController::class,
             '/car/model' => CarModelController::class,
+            '/car' => CarController::class,
         ]);
         
         Route::post('/logout', [ AuthController::class, 'logout']);

@@ -63,7 +63,7 @@ class Car extends Model
     /**
     * The validation to update a car model.
     */
-    public static function carEditValidation(Request $request) 
+    public static function carUpdateValidation(Request $request) 
     {
         return $request->validate([
             'model_id' => 'integer|exists:car_model,id',
