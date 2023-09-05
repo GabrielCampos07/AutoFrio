@@ -10,11 +10,11 @@
     <mat-card-content>
       <form>
         <mat-form-field appearance="outline">
-          <mat-label>Usuário</mat-label>
+          <mat-label>Email</mat-label>
           <input
             matInput
             name="login"
-            placeholder="Nome de usuário"
+            placeholder="Type your email"
             [(ngModel)]="user.email"
           />
         </mat-form-field>
@@ -23,7 +23,7 @@
           <input
             matInput
             name="password"
-            placeholder="Senha"
+            placeholder="Type your password"
             [(ngModel)]="user.password"
             [type]="hidePassword ? 'password' : 'text'"
           />
@@ -39,7 +39,7 @@
           </button>
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="login()">
-          Entrar
+          Login
         </button>
       </form>
     </mat-card-content>

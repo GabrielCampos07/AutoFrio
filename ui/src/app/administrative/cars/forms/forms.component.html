@@ -1,0 +1,56 @@
+<div class="dialog" *ngIf="cars">
+  <div class="buttons">
+    <h2>{{ !cars.id ? "Register" : "Edit" }}</h2>
+    <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </div>
+  <div>
+    <app-form #form>
+      <div class="forms">
+        <app-input
+          [(ngModel)]="cars.model_id!"
+          label="Car model"
+          [required]="true"
+          name="Car model"
+          ngDefaultControl
+        >
+          <span required>Car model is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="cars.brand_id!"
+          label="Car brand"
+          [required]="true"
+          name="Car brand"
+          ngDefaultControl
+        >
+          <span required>Car brand is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="cars.license_plate!"
+          label="License plate"
+          [required]="true"
+          name="License plate"
+          ngDefaultControl
+        >
+        </app-input>
+
+        <app-input
+          [(ngModel)]="cars.year!"
+          label="Year"
+          [required]="true"
+          name="Year"
+          ngDefaultControl
+          ><span required>Year is required!</span></app-input
+        >
+      </div>
+    </app-form>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button (click)="saveCar(form)" [mat-dialog-close]="'ok'">
+      Save
+    </button>
+  </div>
+</div>

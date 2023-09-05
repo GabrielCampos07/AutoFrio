@@ -13,21 +13,21 @@ export class CostumersService {
 
   get(name?: string): Observable<Costumers[]> {
     return name
-      ? this.http.get(`/${this.route}?name_like=${name}`)
-      : this.http.get(`/${this.route}`);
+      ? this.http.get(`${this.route}?name_like=${name}`)
+      : this.http.get(`${this.route}`);
   }
 
   getById(costumers: Costumers): Observable<Costumers> {
-    return this.http.get(`/${this.route}/${costumers.id}`);
+    return this.http.get(`${this.route}/${costumers.id}`);
   }
 
   save(costumer: Costumers) {
     return costumer.id
-      ? this.http.put(`/${this.route}/${costumer.id}`, costumer)
-      : this.http.post(`/${this.route}`, costumer);
+      ? this.http.put(`${this.route}/${costumer.id}`, costumer)
+      : this.http.post(`${this.route}`, costumer);
   }
 
   delete(costumer: Costumers) {
-    return this.http.delete(`/${this.route}/${costumer.id}`);
+    return this.http.delete(`${this.route}/${costumer.id}`);
   }
 }

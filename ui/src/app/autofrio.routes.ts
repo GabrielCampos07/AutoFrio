@@ -27,6 +27,11 @@ const routes: Routes = [
             (m) => m.PartsModule
           ),
       },
+      {
+        path: 'cars',
+        loadChildren: () =>
+          import('./administrative/cars/cars.module').then((m) => m.CarsModule),
+      },
     ],
   },
 ];

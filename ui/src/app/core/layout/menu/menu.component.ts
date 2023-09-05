@@ -10,13 +10,39 @@ import { ModulesService } from 'src/app/core/layout/menu/shared/modules.service'
 export class MenuComponent {
   @Output() itemClick = new EventEmitter();
 
-  public modules: Module[] = [];
+  public modules: Module[] = [
+    {
+      route: 'dashboard',
+      description: 'Dashboard',
+      icon: 'dashboard',
+    },
+    {
+      route: 'costumers',
+      description: 'Costumers',
+      icon: 'person_search',
+    },
+    {
+      route: 'parts',
+      description: 'Parts',
+      icon: 'build',
+    },
+    {
+      route: 'cars',
+      description: 'Cars',
+      icon: 'directions_car',
+    },
+    {
+      route: 'services',
+      description: 'Services',
+      icon: 'assignment',
+    },
+  ];
 
   constructor(private modulesService: ModulesService) {}
 
   ngOnInit() {
-    this.modulesService
-      .getModules()
-      .subscribe((modules: Module[]) => (this.modules = modules));
+    // this.modulesService
+    //   .getModules()
+    //   .subscribe((modules: Module[]) => (this.modules = modules));
   }
 }
