@@ -1,13 +1,13 @@
-<div class="dialog" *ngIf="cars">
+<div class="dialog" *ngIf="car">
   <div class="buttons">
-    <h2>{{ !cars.id ? "Register" : "Edit" }}</h2>
+    <h2>{{ !car.id ? "Register" : "Edit" }}</h2>
     <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
   </div>
   <div>
     <app-form #form>
       <div class="forms">
         <app-input
-          [(ngModel)]="cars.model_id!"
+          [(ngModel)]="car.model_id!"
           label="Car model"
           [required]="true"
           name="Car model"
@@ -17,7 +17,7 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="cars.brand_id!"
+          [(ngModel)]="car.brand_id!"
           label="Car brand"
           [required]="true"
           name="Car brand"
@@ -27,7 +27,7 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="cars.license_plate!"
+          [(ngModel)]="car.license_plate!"
           label="License plate"
           [required]="true"
           name="License plate"
@@ -36,7 +36,7 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="cars.year!"
+          [(ngModel)]="car.year!"
           label="Year"
           [required]="true"
           name="Year"

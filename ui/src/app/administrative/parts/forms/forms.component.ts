@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Parts } from 'src/app/administrative/parts/shared/parts';
-import { PartsService } from 'src/app/administrative/parts/shared/parts.service';
+import { PartService } from 'src/app/administrative/parts/shared/parts.service';
 import { FormComponent } from 'src/app/shared/components/form/form.component';
 
 @Component({
@@ -15,20 +15,20 @@ export class FormsComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { part: Parts },
     public dialogRef: MatDialogRef<FormComponent>,
-    private partsService: PartsService
+    private PartService: PartService
   ) {}
 
   ngOnInit() {
     if (this.data.part) {
-      this.partsService
-        .getById(this.data.part)
-        .subscribe((part) => (this.part = part));
+      this.PartService.getById(this.data.part).subscribe(
+        (part) => (this.part = part)
+      );
     }
   }
 
   savePart(form: FormComponent): void {
     if (form.valid()) {
-      this.partsService.save(this.part).subscribe();
+      this.PartService.save(this.part).subscribe();
     }
   }
 }

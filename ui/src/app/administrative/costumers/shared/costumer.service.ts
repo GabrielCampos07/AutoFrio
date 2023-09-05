@@ -6,7 +6,7 @@ import { Costumers } from './costumers';
 @Injectable({
   providedIn: 'root',
 })
-export class CostumersService {
+export class CostumerService {
   private route: string = 'costumers';
 
   constructor(private http: Http) {}
@@ -17,8 +17,8 @@ export class CostumersService {
       : this.http.get(`${this.route}`);
   }
 
-  getById(costumers: Costumers): Observable<Costumers> {
-    return this.http.get(`${this.route}/${costumers.id}`);
+  getById(costumer: Costumers): Observable<Costumers> {
+    return this.http.get(`${this.route}/${costumer.id}`);
   }
 
   save(costumer: Costumers) {
