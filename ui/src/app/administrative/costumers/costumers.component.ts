@@ -19,18 +19,19 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
   selector: 'app-costumers',
   templateUrl: './costumers.component.html',
   styleUrls: ['./costumers.component.scss'],
+  providers: [AlertService, DialogService],
 })
 export class CostumersComponent {
+  @ViewChild('input') input!: ElementRef;
+
   costumers$!: Observable<Costumers[]>;
 
   constructor(
     private matDialog: MatDialog,
-    private costumersService: CostumersService,
     private alertService: AlertService,
+    private costumersService: CostumersService,
     private dialogService: DialogService
   ) {}
-
-  @ViewChild('input') input!: ElementRef;
 
   ngAfterViewInit() {
     const searchParts$: Observable<Costumers[]> = fromEvent<any>(
@@ -57,7 +58,7 @@ export class CostumersComponent {
       .dialog(`Deseja mesmo excluir o item ${costumers.name}?`, true)
       .afterClosed()
       .pipe(
-        switchMap((result) => {
+        switchMap((result: Costumers) => {
           if (result) {
             return this.costumersService.delete(costumers).pipe(
               tap(() =>
@@ -88,7 +89,7 @@ export class CostumersComponent {
       })
       .afterClosed()
       .pipe(
-        switchMap((result) => {
+        switchMap((result: Costumers) => {
           if (result) {
             return (this.costumers$ = this.getCostumers()).pipe(
               tap(() =>

@@ -1,9 +1,4 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Parts } from './shared/parts';
-import { MatDialog } from '@angular/material/dialog';
-import { PartsService } from './shared/parts.service';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   Observable,
   concat,
@@ -14,59 +9,64 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
+import { Cars } from './shared/cars';
+import { CarsService } from './shared/cars.service';
+import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
-  selector: 'app-parts',
-  templateUrl: './parts.component.html',
-  styleUrls: ['./parts.component.scss'],
+  selector: 'app-cars',
+  templateUrl: './cars.component.html',
+  styleUrls: ['./cars.component.scss'],
   providers: [AlertService, DialogService],
 })
-export class PartsComponent {
-  parts$!: Observable<Parts[]>;
-
+export class CarsComponent {
   @ViewChild('input') input!: ElementRef;
+
+  cars$!: Observable<Cars[]>;
 
   constructor(
     private matDialog: MatDialog,
-    private PartsService: PartsService,
+    private carsService: CarsService,
     private alertService: AlertService,
     private dialogService: DialogService
   ) {}
 
   ngAfterViewInit() {
-    const searchParts$: Observable<Parts[]> = fromEvent<any>(
+    const searchParts$: Observable<Cars[]> = fromEvent<any>(
       this.input.nativeElement,
       'keyup'
     ).pipe(
       map((event) => event.target.value),
       debounceTime(400),
       distinctUntilChanged(),
-      switchMap((search) => this.getParts(search))
+      switchMap((search) => this.getCars(search))
     );
 
-    const initialParts$ = this.getParts();
+    const initialParts$ = this.getCars();
 
-    this.parts$ = concat(initialParts$, searchParts$);
+    this.cars$ = concat(initialParts$, searchParts$);
   }
 
-  getParts(name?: string): Observable<Parts[]> {
-    return this.PartsService.get(name);
+  getCars(license_plate?: string): Observable<Cars[]> {
+    return this.carsService.get(license_plate);
   }
 
-  deletePart(part: Parts): void {
+  deleteCars(cars: Cars): void {
     this.dialogService
-      .dialog(`Deseja mesmo excluir o item ${part.name}?`, true)
+      .dialog(`Deseja mesmo excluir o item ${cars.model_id}?`, true)
       .afterClosed()
       .pipe(
-        switchMap((result: Parts) => {
+        switchMap((result: Cars) => {
           if (result) {
-            return this.PartsService.delete(part).pipe(
+            return this.carsService.delete(cars).pipe(
               tap(() =>
-                this.alertService.success(`${part.name} excluido com sucesso!`)
+                this.alertService.success(
+                  `${cars.model_id} excluido com sucesso!`
+                )
               ),
-              switchMap(() => (this.parts$ = this.getParts()))
+              switchMap(() => this.refreshCarsList())
             );
           }
           return result;
@@ -75,21 +75,25 @@ export class PartsComponent {
       .subscribe();
   }
 
-  async openPart(part?: Parts) {
+  refreshCarsList(): Observable<Cars[]> {
+    return (this.cars$ = this.getCars());
+  }
+
+  async openCars(cars?: Cars) {
     const { FormsComponent } = await import('./forms/forms.component');
     this.matDialog
       .open(FormsComponent, {
-        data: { part: part },
+        data: { cars: cars },
       })
       .afterClosed()
       .pipe(
-        switchMap((result: Parts) => {
+        switchMap((result: Cars) => {
           if (result) {
-            return (this.parts$ = this.getParts()).pipe(
+            return (this.cars$ = this.getCars()).pipe(
               tap(() =>
                 this.alertService.success(
-                  `${part?.name || 'item'} ${
-                    part?.id ? 'editado' : 'criado'
+                  `${cars?.model_id || 'item'} ${
+                    cars?.id ? 'editado' : 'criado'
                   } com sucesso!`
                 )
               )

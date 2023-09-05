@@ -1,0 +1,53 @@
+<div class="title">
+  <mat-icon>directions_car</mat-icon>
+  <h1>Cars</h1>
+</div>
+<div class="header">
+  <div>
+    <app-filter-button>
+      <div class="content">
+        <mat-form-field appearance="outline">
+          <mat-label>license plate</mat-label>
+          <input matInput #input placeholder="type the license plate" />
+        </mat-form-field>
+      </div>
+    </app-filter-button>
+  </div>
+  <div>
+    <button mat-flat-button color="accent">REGISTER</button>
+  </div>
+</div>
+<ng-container *ngIf="cars$ | async as cars">
+  <app-table [data]="cars" [length]="cars.length">
+    <div t-head>ID</div>
+    <div *tableItem="let item">{{ item.id }}</div>
+
+    <div t-head>Model</div>
+    <div *tableItem="let item">{{ item.model_id }}</div>
+
+    <div t-head>Brand</div>
+    <div *tableItem="let item">{{ item.brand_id }}</div>
+
+    <div t-head>License Plate</div>
+    <div *tableItem="let item">{{ item.license_plate }}</div>
+
+    <div t-head>Year</div>
+    <div *tableItem="let item">{{ item.year }}</div>
+
+    <div t-head>Mileage</div>
+    <div *tableItem="let item">{{ item.mileage }}</div>
+
+    <div t-head>Color</div>
+    <div *tableItem="let item">{{ item.color }}</div>
+
+    <div t-head>Action</div>
+    <div *tableItem="let item">
+      <button mat-mini-fab (click)="openCars(item)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab (click)="deleteCars(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </app-table>
+</ng-container>

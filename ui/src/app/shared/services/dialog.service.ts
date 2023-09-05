@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalComponent } from '../components/modal/modal.component';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class DialogService {
   constructor(private matDialog: MatDialog) {}
 
