@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Parts } from './shared/parts';
 import { MatDialog } from '@angular/material/dialog';
-import { PartsService } from './shared/parts.service';
+import { PartService } from './shared/parts.service';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
@@ -30,7 +30,7 @@ export class PartsComponent {
 
   constructor(
     private matDialog: MatDialog,
-    private PartsService: PartsService,
+    private PartService: PartService,
     private alertService: AlertService,
     private dialogService: DialogService
   ) {}
@@ -52,7 +52,7 @@ export class PartsComponent {
   }
 
   getParts(name?: string): Observable<Parts[]> {
-    return this.PartsService.get(name);
+    return this.PartService.get(name);
   }
 
   deletePart(part: Parts): void {
@@ -62,7 +62,7 @@ export class PartsComponent {
       .pipe(
         switchMap((result: Parts) => {
           if (result) {
-            return this.PartsService.delete(part).pipe(
+            return this.PartService.delete(part).pipe(
               tap(() =>
                 this.alertService.success(`${part.name} excluido com sucesso!`)
               ),

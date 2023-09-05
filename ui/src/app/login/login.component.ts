@@ -1,39 +1,45 @@
 import { Component } from '@angular/core';
-import { LoginService } from './shared/login.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../shared/services/alert.service';
-import { AuthLogin } from './shared/authLogin';
+import { AuthenticateLogin } from '../shared/models/authenticate';
+import { AuthService } from '../core/services/auth.service';
+import { forkJoin, tap } from 'rxjs';
+import { SecurityService } from '../shared/services/security.service';
+import { EncryptService } from '../shared/services/encrypt.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [AlertService],
+  providers: [AlertService, AuthService],
 })
 export class LoginComponent {
   public hidePassword: boolean = true;
-  public user: AuthLogin = {
+  public user: AuthenticateLogin = {
     email: '',
     password: '',
   };
 
   constructor(
-    private loginService: LoginService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
   ) {}
 
   login(): void {
-    this.loginService.login(this.user).subscribe({
-      next: (result) => {
-        localStorage.setItem('token', result.token);
-        this.router.navigate(['dashboard']).then(() => {
-          this.alertService.success('Login feito com sucesso');
-        });
-      },
-      error: (error) => {
-        this.alertService.error(error.error.message);
-      },
-    });
+    this.authService
+      .authenticate(this.user)
+      .pipe(
+        tap(() => {
+          this.router.navigate(['dashboard']).then(() => {
+            this.alertService.success('Login feito com sucesso');
+          });
+        })
+      )
+      .subscribe({
+        error: (error) => {
+          this.alertService.error(error.error.message);
+        },
+      });
   }
 }

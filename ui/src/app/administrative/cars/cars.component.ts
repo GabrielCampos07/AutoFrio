@@ -9,8 +9,8 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { Cars } from './shared/cars';
-import { CarsService } from './shared/cars.service';
+import { Car } from './shared/car';
+import { CarService } from './shared/car.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
@@ -24,17 +24,17 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 export class CarsComponent {
   @ViewChild('input') input!: ElementRef;
 
-  cars$!: Observable<Cars[]>;
+  cars$!: Observable<Car[]>;
 
   constructor(
     private matDialog: MatDialog,
-    private carsService: CarsService,
+    private carService: CarService,
     private alertService: AlertService,
     private dialogService: DialogService
   ) {}
 
   ngAfterViewInit() {
-    const searchParts$: Observable<Cars[]> = fromEvent<any>(
+    const searchParts$: Observable<Car[]> = fromEvent<any>(
       this.input.nativeElement,
       'keyup'
     ).pipe(
@@ -49,18 +49,18 @@ export class CarsComponent {
     this.cars$ = concat(initialParts$, searchParts$);
   }
 
-  getCars(license_plate?: string): Observable<Cars[]> {
-    return this.carsService.get(license_plate);
+  getCars(license_plate?: string): Observable<Car[]> {
+    return this.carService.get(license_plate);
   }
 
-  deleteCars(cars: Cars): void {
+  deleteCar(cars: Car): void {
     this.dialogService
       .dialog(`Deseja mesmo excluir o item ${cars.model_id}?`, true)
       .afterClosed()
       .pipe(
-        switchMap((result: Cars) => {
+        switchMap((result: Car) => {
           if (result) {
-            return this.carsService.delete(cars).pipe(
+            return this.carService.delete(cars).pipe(
               tap(() =>
                 this.alertService.success(
                   `${cars.model_id} excluido com sucesso!`
@@ -75,25 +75,25 @@ export class CarsComponent {
       .subscribe();
   }
 
-  refreshCarsList(): Observable<Cars[]> {
+  refreshCarsList(): Observable<Car[]> {
     return (this.cars$ = this.getCars());
   }
 
-  async openCars(cars?: Cars) {
+  async openCar(car?: Car) {
     const { FormsComponent } = await import('./forms/forms.component');
     this.matDialog
       .open(FormsComponent, {
-        data: { cars: cars },
+        data: { car: car },
       })
       .afterClosed()
       .pipe(
-        switchMap((result: Cars) => {
+        switchMap((result: Car) => {
           if (result) {
             return (this.cars$ = this.getCars()).pipe(
               tap(() =>
                 this.alertService.success(
-                  `${cars?.model_id || 'item'} ${
-                    cars?.id ? 'editado' : 'criado'
+                  `${car?.model_id || 'item'} ${
+                    car?.id ? 'editado' : 'criado'
                   } com sucesso!`
                 )
               )

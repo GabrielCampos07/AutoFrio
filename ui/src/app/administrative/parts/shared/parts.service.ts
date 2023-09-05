@@ -6,7 +6,7 @@ import { Parts } from './parts';
 @Injectable({
   providedIn: 'root',
 })
-export class PartsService {
+export class PartService {
   private route: string = 'parts';
 
   constructor(private http: Http) {}
@@ -17,14 +17,14 @@ export class PartsService {
       : this.http.get(`${this.route}`);
   }
 
-  getById(parts: Parts): Observable<Parts> {
-    return this.http.get(`${this.route}/${parts.id}`);
+  getById(part: Parts): Observable<Parts> {
+    return this.http.get(`${this.route}/${part.id}`);
   }
 
-  save(costumer: Parts) {
-    return costumer.id
-      ? this.http.put(`${this.route}/${costumer.id}`, costumer)
-      : this.http.post(`${this.route}`, costumer);
+  save(part: Parts) {
+    return part.id
+      ? this.http.put(`${this.route}/${part.id}`, part)
+      : this.http.post(`${this.route}`, part);
   }
 
   delete(part: Parts) {

@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { CostumersService } from './shared/costumers.service';
+import { CostumerService } from './shared/costumer.service';
 import { Costumers } from './shared/costumers';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -29,7 +29,7 @@ export class CostumersComponent {
   constructor(
     private matDialog: MatDialog,
     private alertService: AlertService,
-    private costumersService: CostumersService,
+    private CostumerService: CostumerService,
     private dialogService: DialogService
   ) {}
 
@@ -50,7 +50,7 @@ export class CostumersComponent {
   }
 
   getCostumers(name?: string): Observable<Costumers[]> {
-    return this.costumersService.get(name);
+    return this.CostumerService.get(name);
   }
 
   deleteCostumer(costumers: Costumers): void {
@@ -60,7 +60,7 @@ export class CostumersComponent {
       .pipe(
         switchMap((result: Costumers) => {
           if (result) {
-            return this.costumersService.delete(costumers).pipe(
+            return this.CostumerService.delete(costumers).pipe(
               tap(() =>
                 this.alertService.success(
                   `${costumers.name} excluido com sucesso!`

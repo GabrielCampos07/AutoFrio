@@ -13,6 +13,7 @@ export class AlertService {
       duration: 3000,
       data: mensagem,
       panelClass: [type],
+      verticalPosition: 'top',
     });
   }
 
