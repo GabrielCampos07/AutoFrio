@@ -75,7 +75,4 @@ class Car extends Model
         ]);
         
     }
-
-
-
 }

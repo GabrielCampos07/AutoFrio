@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CarModelSeeder::class,
             CarSeeder::class,
             ServiceSeeder::class,
+            CustomerSeeder::class,
         ]);
     }
 }

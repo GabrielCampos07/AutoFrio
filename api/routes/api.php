@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarBrandController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarModelController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,7 @@ Route::group(['middleware' => ['json.response']], function() {
             '/car/brand' => CarBrandController::class,
             '/car/model' => CarModelController::class,
             '/car' => CarController::class,
+            '/customer' => CustomerController::class,
         ]);
         
         Route::post('/logout', [ AuthController::class, 'logout']);
@@ -30,7 +32,6 @@ Route::group(['middleware' => ['json.response']], function() {
     
     Route::post('/register', [ AuthController::class, 'register']);
     Route::post('/login', [ AuthController::class, 'login']);
-    
 });
 
 

@@ -10,12 +10,12 @@ class CarModel extends Model
 {
     use HasFactory;
 
+    protected $table = "car_model";
+
     protected $fillable = [
         'name',
         'brand_id'
     ];
-
-    protected $table = "car_model";
 
     /**
     * Return car brand
