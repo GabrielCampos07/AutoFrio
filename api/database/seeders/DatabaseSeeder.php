@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             DefaultUser::class,
             CarBrandSeeder::class,
             CarModelSeeder::class,
+            CarSeeder::class,
             ServiceSeeder::class,
         ]);
     }
