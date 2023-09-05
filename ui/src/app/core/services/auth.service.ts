@@ -9,11 +9,7 @@ import { SecurityService } from 'src/app/shared/services/security.service';
 export class AuthService {
   private route: string = 'login';
 
-  constructor(
-    private http: Http,
-    private securityService: SecurityService,
-    private encryptService: EncryptService
-  ) {}
+  constructor(private http: Http, private securityService: SecurityService) {}
 
   authenticate(auth: AuthenticateLogin): Observable<any> {
     // let _auth: AuthenticateLogin = {

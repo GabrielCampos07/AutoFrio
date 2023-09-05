@@ -7,7 +7,7 @@ import { Costumers } from './costumers';
   providedIn: 'root',
 })
 export class CostumerService {
-  private route: string = 'costumers';
+  private route: string = 'customer';
 
   constructor(private http: Http) {}
 
