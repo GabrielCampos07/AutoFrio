@@ -6,9 +6,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
 import { CommonModule } from '@angular/common';
 import { InputComponent } from './components/input/input.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
-  imports: [MaterialModule, CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    MaterialModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxMaskModule.forRoot(),
+  ],
   declarations: [FilterButtonComponent, FormComponent, InputComponent],
   exports: [
     MaterialModule,
@@ -18,6 +25,7 @@ import { InputComponent } from './components/input/input.component';
     CommonModule,
     InputComponent,
     FormsModule,
+    NgxMaskModule,
   ],
   providers: [],
 })

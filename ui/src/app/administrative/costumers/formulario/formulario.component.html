@@ -1,4 +1,4 @@
-<div class="dialog" *ngIf="costumer">
+<div class="dialog-forms" *ngIf="costumer">
   <div class="buttons">
     <h2>{{ !costumer.id ? "Register" : "Edit" }}</h2>
     <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
@@ -17,13 +17,45 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="costumer.address!"
-          label="Adress"
+          [(ngModel)]="costumer.document!"
+          label="Document"
           [required]="true"
-          name="Adress"
+          name="Document"
+          ngDefaultControl
+          mask="000.000.000-00"
+        >
+          <span required>Document is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.neighborhood!"
+          label="Neighborhood"
+          [required]="true"
+          name="Neighborhood"
           ngDefaultControl
         >
-          <span required>Adress is required!</span>
+          <span required>Neighborhood is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.street!"
+          label="Street"
+          [required]="true"
+          name="Street"
+          ngDefaultControl
+        >
+          <span required>Street is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.cep!"
+          label="Cep"
+          [required]="true"
+          name="Cep"
+          ngDefaultControl
+          mask="00000-000"
+        >
+          <span required>Cep is required!</span>
         </app-input>
 
         <app-input
@@ -37,13 +69,22 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="costumer.telephone!"
-          label="Telephone"
+          [(ngModel)]="costumer.phone!"
+          label="Phone"
           [required]="true"
-          name="Telephone"
+          name="Phone"
           ngDefaultControl
-          ><span required>Telephone is required!</span></app-input
+          mask="(00) 00000-0000"
+          ><span required>Phone is required!</span></app-input
         >
+
+        <app-input
+          [(ngModel)]="costumer.phone_2!"
+          label="Phone2"
+          name="Phone2"
+          ngDefaultControl
+          mask="(00) 00000-0000"
+        ></app-input>
       </div>
     </app-form>
   </div>

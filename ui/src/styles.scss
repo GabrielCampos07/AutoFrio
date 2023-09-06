@@ -61,3 +61,19 @@ h1 {
 .container {
   height: 100%;
 }
+
+.dialog-forms {
+  width: 650px;
+  padding: 20px;
+
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .forms {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}

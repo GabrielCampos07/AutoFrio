@@ -12,10 +12,11 @@ export class InputComponent {
   @Input() required: boolean = false;
   @Input() type: string = 'text';
   @Input() ngModel: any;
+  @Input() mask = '';
 
-  @Output() public ngModelChange = new EventEmitter();
+  @Output() ngModelChange = new EventEmitter();
 
-  @Output() public input = new EventEmitter();
+  @Output() input = new EventEmitter();
 
   get _ngModel() {
     return this.ngModel;
@@ -27,7 +28,7 @@ export class InputComponent {
     this.ngModelChange.emit(this.ngModel);
   }
 
-  public formControl: FormControl = new FormControl();
+  formControl: FormControl = new FormControl();
 
   constructor() {}
 
@@ -39,6 +40,8 @@ export class InputComponent {
     this.formControl.valueChanges.subscribe((value) => {
       this._ngModel = value;
     });
+
+    if (this.mask) this.type = 'text';
   }
 
   ngOnChanges(changes: any): void {

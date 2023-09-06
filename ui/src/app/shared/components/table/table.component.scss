@@ -3,4 +3,8 @@ table {
   margin-top: 10px;
   border-radius: 8px;
   border-spacing: 5px;
+
+  td,th {
+    text-align: center;
+  }
 }

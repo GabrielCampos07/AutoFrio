@@ -1,7 +1,11 @@
 export interface Costumers {
   id?: number;
   name?: string;
-  address?: string;
+  document?: string;
+  neighborhood?: string;
+  street?: string;
+  cep?: string;
   email?: string;
-  telephone?: string;
+  phone?: string;
+  phone_2?: string;
 }

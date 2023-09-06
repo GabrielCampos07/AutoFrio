@@ -23,10 +23,10 @@
     <div *tableItem="let item">{{ item.id }}</div>
 
     <div t-head>Model</div>
-    <div *tableItem="let item">{{ item.model_id }}</div>
+    <div *tableItem="let item">{{ item.model.name }}</div>
 
     <div t-head>Brand</div>
-    <div *tableItem="let item">{{ item.brand_id }}</div>
+    <div *tableItem="let item">{{ item.brand.name }}</div>
 
     <div t-head>License Plate</div>
     <div *tableItem="let item">{{ item.license_plate }}</div>

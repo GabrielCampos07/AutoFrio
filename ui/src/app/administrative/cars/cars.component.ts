@@ -8,6 +8,7 @@ import {
   map,
   switchMap,
   tap,
+  throwError,
 } from 'rxjs';
 import { Car } from './shared/car';
 import { CarService } from './shared/car.service';
@@ -88,6 +89,7 @@ export class CarsComponent {
       .afterClosed()
       .pipe(
         switchMap((result: Car) => {
+          console.log(result);
           if (result) {
             return (this.cars$ = this.getCars()).pipe(
               tap(() =>
@@ -99,7 +101,7 @@ export class CarsComponent {
               )
             );
           }
-          return result;
+          return throwError('Objeto não fornecido');
         })
       )
       .subscribe();
