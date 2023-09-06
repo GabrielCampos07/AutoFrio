@@ -4,15 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class CarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index( Request $request)
     {
-        return Car::with('brand','model')->get();
+        return Car::select(
+                "car.id",
+                "car_model.name as model",
+                "car_brand.name as brand",
+                "car.license_plate",
+                "car.year",
+                "car.mileage",
+                "car.color",
+                "car.created_at"
+            )
+            ->join('car_model', 'car.model_id', '=', 'car_model.id')
+            ->join('car_brand', 'car.brand_id', '=', 'car_brand.id')
+            ->when(
+                $request->searchTerm,
+                function (Builder $builder) use ($request) {
+                    $builder->where('car.license_plate', 'LIKE','%'.$request->searchTerm.'%')
+                        ->orWhere('car.color', 'LIKE','%'.$request->searchTerm.'%')
+                        ->orWhere('car_model.name', 'LIKE','%'.$request->searchTerm.'%')
+                        ->orWhere('car_brand.name', 'LIKE','%'.$request->searchTerm.'%');
+                }
+            )
+            ->get();
     }
 
     /**
@@ -34,14 +57,25 @@ class CarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $car)
+    public function show(Request $request, string $car)
     {
-        $car = Car::find($car);
+        $car = Car::select(
+                "car.id",
+                "car_model.name as model",
+                "car_brand.name as brand",
+                "car.license_plate",
+                "car.year",
+                "car.mileage",
+                "car.color",
+                "car.created_at"
+            )
+            ->join('car_model', 'car.model_id', '=', 'car_model.id')
+            ->join('car_brand', 'car.brand_id', '=', 'car_brand.id')
+            ->where('car.id')
+            ->get();
 
         if ($car) {
-            
-            $car->brand;
-            $car->model;
+
             return $car;
         }
 
