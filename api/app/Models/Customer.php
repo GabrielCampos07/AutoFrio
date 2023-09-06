@@ -48,7 +48,7 @@ class Customer extends Model
     {        
         return $request->validate([
             'name' => 'required|string',
-            'document' => 'required|integer|unique:custumer,document',
+            'document' => 'required|integer|unique:customer,document',
             'phone' => 'required|integer',
             'phone_2' => 'required|integer',
             'email' => 'required|email|unique:usuarios',
@@ -68,7 +68,7 @@ class Customer extends Model
     {
         return $request->validate([
             'name' => 'string',
-            'document' => 'integer|unique:custumer,document',
+            'document' => 'integer|unique:customer,document',
             'phone' => 'integer',
             'phone_2' => 'integer',
             'email' => 'email|unique:usuarios',
