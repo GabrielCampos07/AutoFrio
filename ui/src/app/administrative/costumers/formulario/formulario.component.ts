@@ -3,7 +3,8 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  OnInit,
+  KeyValueDiffer,
+  KeyValueDiffers,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Costumer } from 'src/app/administrative/costumers/shared/costumers';
@@ -22,18 +23,24 @@ import { AlertService } from 'src/app/shared/services/alert.service';
   providers: [AlertService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormularioComponent implements OnInit {
+export class FormularioComponent {
+  private objectDiffer!: KeyValueDiffer<any, any>;
+
   costumer: Costumer = {};
+  costumerEdited: Costumer = {};
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { costumer: Costumer },
     public dialogRef: MatDialogRef<FormularioComponent>,
     private CostumerService: CostumerService,
     private alertService: AlertService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private differs: KeyValueDiffers
   ) {}
 
   ngOnInit() {
+    this.objectDiffer = this.differs.find(this.costumer).create();
+
     if (this.data.costumer) {
       this.CostumerService.getById(this.data.costumer).subscribe(
         (costumers) => {
@@ -44,25 +51,55 @@ export class FormularioComponent implements OnInit {
     }
   }
 
+  ngDoCheck() {
+    const changes = this.objectDiffer.diff(this.costumer);
+
+    if (changes) {
+      changes.forEachChangedItem((change) => {
+        this.costumerEdited[change.key] = change.currentValue;
+      });
+    }
+  }
+
   saveCostumer(form: FormComponent): void {
-    form.inputs.map((input) => console.log(input));
+    if (this.costumer.id)
+      this.costumer = { id: this.costumer.id, ...this.costumerEdited };
+
+    this.cleanCostumerFields();
+
     if (form.valid()) {
       this.CostumerService.save(this.costumer)
         .pipe(
           tap((car) => {
-            this.alertService.success(
-              `${car?.model || 'item'} ${
-                car?.id ? 'editado' : 'criado'
-              } com sucesso!`
-            );
-            this.dialogRef.close('ok');
+            this.handleSuccess(car);
           })
         )
         .subscribe({
           error: (error) => {
-            this.alertService.error(error.message);
+            this.handleError(error);
           },
         });
     }
+  }
+
+  private cleanCostumerFields(): void {
+    this.costumer = {
+      ...this.costumer,
+      cep: this.costumer.cep?.toString().replace(/\D/g, ''),
+      document: this.costumer.document?.toString().replace(/\D/g, ''),
+      phone: this.costumer.phone?.toString().replace(/\D/g, ''),
+      phone_2: this.costumer.phone_2?.toString().replace(/\D/g, ''),
+    };
+  }
+
+  private handleSuccess(costumer: any): void {
+    this.alertService.success(
+      `${costumer?.model} ${costumer?.id ? 'editado' : 'criado'} com sucesso!`
+    );
+    this.dialogRef.close('ok');
+  }
+
+  private handleError(error: any): void {
+    this.alertService.error(error.message);
   }
 }

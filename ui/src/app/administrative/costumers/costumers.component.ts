@@ -53,26 +53,22 @@ export class CostumersComponent {
     return this.CostumerService.get(name);
   }
 
-  deleteCostumer(costumers: Costumer): void {
+  deleteCostumer(costumer: Costumer): void {
     this.dialogService
-      .dialog(`Deseja mesmo excluir o item ${costumers.name}?`, true)
+      .dialog(`Deseja mesmo excluir o item ${costumer.name}?`, true)
       .afterClosed()
-      .pipe(
-        switchMap((result: Costumer) => {
-          if (result) {
-            return this.CostumerService.delete(costumers).pipe(
-              tap(() =>
-                this.alertService.success(
-                  `${costumers.name} excluido com sucesso!`
-                )
-              ),
-              switchMap(() => this.refreshCostumersList())
-            );
-          }
-          return result;
-        })
-      )
-      .subscribe();
+      .subscribe((result) => {
+        if (result) this.deleteCostumerAndRefreshList(costumer);
+      });
+  }
+
+  private deleteCostumerAndRefreshList(costumer: Costumer): void {
+    this.CostumerService.delete(costumer).pipe(
+      tap(() =>
+        this.alertService.success(`${costumer.name} excluido com sucesso!`)
+      ),
+      switchMap(() => this.refreshCostumersList())
+    );
   }
 
   refreshCostumersList(): Observable<Costumer[]> {
@@ -88,13 +84,9 @@ export class CostumersComponent {
         data: { costumer: costumer },
       })
       .afterClosed()
-      .pipe(
-        switchMap((result: Costumer) => {
-          if (result) return (this.costumers$ = this.getCostumers());
-
-          return '';
-        })
-      )
-      .subscribe();
+      .subscribe((result) => {
+        if (result) return (this.costumers$ = this.getCostumers());
+        return;
+      });
   }
 }

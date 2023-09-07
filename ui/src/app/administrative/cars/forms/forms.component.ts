@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -22,7 +24,6 @@ import { AlertService } from 'src/app/shared/services/alert.service';
   providers: [AlertService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class FormsComponent implements OnInit {
   car: Car = {};
   brands$: Observable<string[]> = new Observable<string[]>();
@@ -32,7 +33,8 @@ export class FormsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { car: Car },
     public dialogRef: MatDialogRef<FormsComponent>,
     private carService: CarService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -48,24 +50,34 @@ export class FormsComponent implements OnInit {
         .save(this.car)
         .pipe(
           tap((car) => {
-            this.alertService.success(
-              `${car?.model || 'item'} ${
-                car?.id ? 'editado' : 'criado'
-              } com sucesso!`
-            );
-            this.dialogRef.close('ok');
+            this.handleSuccess(car);
           })
         )
         .subscribe({
           error: (error) => {
-            this.alertService.error(error.message);
+            this.handleError(error);
           },
         });
     }
   }
 
+  private handleSuccess(car: Car): void {
+    this.alertService.success(
+      `${car?.model} ${car?.id ? 'editado' : 'criado'} com sucesso!`
+    );
+
+    this.dialogRef.close('ok');
+  }
+
+  private handleError(error: Error): void {
+    this.alertService.error(error.message);
+  }
+
   getCar(): void {
-    this.carService.getById(this.data.car).subscribe((car) => (this.car = car));
+    this.carService.getById(this.data.car).subscribe((car) => {
+      this.car = car;
+      this.cdr.detectChanges();
+    });
   }
 
   getBrand(): Observable<string[]> {

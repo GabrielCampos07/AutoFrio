@@ -7,7 +7,7 @@
     <app-form #form>
       <div class="forms">
         <app-input
-          [(ngModel)]="costumer.name!"
+          [(ngModel)]="costumer.name"
           label="Name"
           [required]="true"
           name="Name"
@@ -17,7 +17,7 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="costumer.document!"
+          [(ngModel)]="costumer.document"
           label="Document"
           [required]="true"
           name="Document"
@@ -29,27 +29,7 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="costumer.neighborhood!"
-          label="Neighborhood"
-          [required]="true"
-          name="Neighborhood"
-          ngDefaultControl
-        >
-          <span required>Neighborhood is required!</span>
-        </app-input>
-
-        <app-input
-          [(ngModel)]="costumer.street!"
-          label="Street"
-          [required]="true"
-          name="Street"
-          ngDefaultControl
-        >
-          <span required>Street is required!</span>
-        </app-input>
-
-        <app-input
-          [(ngModel)]="costumer.cep!"
+          [(ngModel)]="costumer.cep"
           label="Cep"
           [required]="true"
           name="Cep"
@@ -61,7 +41,58 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="costumer.email!"
+          [(ngModel)]="costumer.neighborhood"
+          label="Neighborhood"
+          [required]="true"
+          name="Neighborhood"
+          ngDefaultControl
+        >
+          <span required>Neighborhood is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.street"
+          label="Street"
+          [required]="true"
+          name="Street"
+          ngDefaultControl
+        >
+          <span required>Street is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.city"
+          label="City"
+          [required]="true"
+          name="City"
+          ngDefaultControl
+        >
+          <span required>City is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.house_number"
+          label="House number"
+          [required]="true"
+          name="House number"
+          ngDefaultControl
+          type="number"
+        >
+          <span required>House number is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.state"
+          label="State"
+          [required]="true"
+          name="State"
+          ngDefaultControl
+        >
+          <span required>State is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="costumer.email"
           label="Email"
           [required]="true"
           name="Email"
@@ -71,7 +102,7 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="costumer.phone!"
+          [(ngModel)]="costumer.phone"
           label="Phone"
           [required]="true"
           name="Phone"
@@ -83,7 +114,7 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="costumer.phone_2!"
+          [(ngModel)]="costumer.phone_2"
           label="Phone2"
           name="Phone2"
           ngDefaultControl

@@ -54,24 +54,22 @@ export class CarsComponent {
     return this.carService.get(license_plate);
   }
 
-  deleteCar(cars: Car): void {
+  deleteCar(car: Car): void {
     this.dialogService
-      .dialog(`Deseja mesmo excluir o item ${cars.model}?`, true)
+      .dialog(`Deseja mesmo excluir o item ${car.model}?`, true)
       .afterClosed()
-      .pipe(
-        switchMap((result: Car) => {
-          if (result) {
-            return this.carService.delete(cars).pipe(
-              tap(() =>
-                this.alertService.success(`${cars.model} excluido com sucesso!`)
-              ),
-              switchMap(() => this.refreshCarsList())
-            );
-          }
-          return result;
-        })
-      )
-      .subscribe();
+      .subscribe((result) => {
+        if (result) this.deleteCostumerAndRefreshList(car);
+      });
+  }
+
+  private deleteCostumerAndRefreshList(car: Car): void {
+    this.carService.delete(car).pipe(
+      tap(() =>
+        this.alertService.success(`${car.model} excluido com sucesso!`)
+      ),
+      switchMap(() => this.refreshCarsList())
+    );
   }
 
   refreshCarsList(): Observable<Car[]> {
@@ -85,13 +83,9 @@ export class CarsComponent {
         data: { car: car },
       })
       .afterClosed()
-      .pipe(
-        switchMap((result: Car) => {
-          if (result) return (this.cars$ = this.getCars());
-
-          return '';
-        })
-      )
-      .subscribe();
+      .subscribe((result) => {
+        if (result) return (this.cars$ = this.getCars());
+        return;
+      });
   }
 }

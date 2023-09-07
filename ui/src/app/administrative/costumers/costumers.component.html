@@ -1,8 +1,8 @@
-<div class="title">
+<div class="title-administrative">
   <mat-icon>person</mat-icon>
   <h1>Costumers</h1>
 </div>
-<div class="header">
+<div class="header-administrative">
   <div>
     <app-filter-button>
       <div class="content">
@@ -21,14 +21,14 @@
 </div>
 <ng-container *ngIf="costumers$ | async as costumers">
   <app-table [data]="costumers" [length]="costumers.length">
-    <div t-head>ID</div>
-    <div *tableItem="let item">{{ item.id }}</div>
-
     <div t-head>Name</div>
-    <div *tableItem="let item">{{ item.name }}</div>
+    <div *tableItem="let item">{{ item.name | titlecase }}</div>
 
     <div t-head>Document</div>
-    <div *tableItem="let item">{{ item.document }}</div>
+    <div *tableItem="let item">{{ item.document | documentFormat }}</div>
+
+    <div t-head>Cep</div>
+    <div *tableItem="let item">{{ item.cep | cepFormat }}</div>
 
     <div t-head>Neighborhood</div>
     <div *tableItem="let item">{{ item.neighborhood }}</div>
@@ -36,19 +36,19 @@
     <div t-head>Street</div>
     <div *tableItem="let item">{{ item.street }}</div>
 
+    <div t-head>House Number</div>
+    <div *tableItem="let item">{{ item.house_number }}</div>
+
     <div t-head>Email</div>
     <div *tableItem="let item">{{ item.email }}</div>
 
     <div t-head>Phone</div>
-    <div *tableItem="let item">{{ item.phone }}</div>
+    <div *tableItem="let item">{{ item.phone | phoneFormat }}</div>
 
     <div t-head>Action</div>
     <div *tableItem="let item">
       <button mat-mini-fab (click)="openCostumer(item)">
         <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-mini-fab (click)="deleteCostumer(item)">
-        <mat-icon>delete</mat-icon>
       </button>
     </div>
   </app-table>

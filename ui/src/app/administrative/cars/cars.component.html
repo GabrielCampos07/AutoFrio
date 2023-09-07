@@ -1,8 +1,8 @@
-<div class="title">
+<div class="title-administrative">
   <mat-icon>directions_car</mat-icon>
   <h1>Cars</h1>
 </div>
-<div class="header">
+<div class="header-administrative">
   <div>
     <app-filter-button>
       <div class="content">
@@ -44,9 +44,6 @@
     <div *tableItem="let item">
       <button mat-mini-fab (click)="openCar(item)">
         <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-mini-fab (click)="deleteCar(item)">
-        <mat-icon>delete</mat-icon>
       </button>
     </div>
   </app-table>
