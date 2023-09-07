@@ -9,6 +9,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+
 import {
   MatDialogModule,
   MatDialogRef,
@@ -31,6 +33,7 @@ import {
     MatSlideToggleModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatSelectModule,
   ],
   providers: [
     {

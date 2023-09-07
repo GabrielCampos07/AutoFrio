@@ -14,7 +14,7 @@
     </app-filter-button>
   </div>
   <div>
-    <button mat-flat-button color="accent">REGISTER</button>
+    <button mat-flat-button color="accent" (click)="openCar()">REGISTER</button>
   </div>
 </div>
 <ng-container *ngIf="cars$ | async as cars">
@@ -23,10 +23,10 @@
     <div *tableItem="let item">{{ item.id }}</div>
 
     <div t-head>Model</div>
-    <div *tableItem="let item">{{ item.model.name }}</div>
+    <div *tableItem="let item">{{ item.model }}</div>
 
     <div t-head>Brand</div>
-    <div *tableItem="let item">{{ item.brand.name }}</div>
+    <div *tableItem="let item">{{ item.brand }}</div>
 
     <div t-head>License Plate</div>
     <div *tableItem="let item">{{ item.license_plate }}</div>

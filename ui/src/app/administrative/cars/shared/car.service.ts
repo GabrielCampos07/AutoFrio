@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http } from 'src/app/shared/services/http.service';
-import { Car } from './car';
+import { Brand, Car, Model } from './car';
 
 @Injectable({
   providedIn: 'root',
@@ -21,13 +21,21 @@ export class CarService {
     return this.http.get(`${this.route}/${car.id}`);
   }
 
-  save(car: Car) {
+  save(car: Car): Observable<Car> {
     return car.id
       ? this.http.put(`${this.route}/${car.id}`, car)
       : this.http.post(`${this.route}`, car);
   }
 
-  delete(car: Car) {
+  delete(car: Car): Observable<boolean> {
     return this.http.delete(`${this.route}/${car.id}`);
+  }
+
+  getBrand(): Observable<Brand[]> {
+    return this.http.get(`${this.route}/brand`);
+  }
+
+  getModel(): Observable<Model[]> {
+    return this.http.get(`${this.route}/model`);
   }
 }

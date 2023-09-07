@@ -14,7 +14,7 @@ import { InputComponent } from '../input/input.component';
 export class FormComponent {
   @ContentChildren(InputComponent, { descendants: true })
   inputs: QueryList<InputComponent> = new QueryList<InputComponent>();
-  constructor(private appRef: ApplicationRef) {}
+  constructor() {}
 
   public valid() {
     return this.inputs

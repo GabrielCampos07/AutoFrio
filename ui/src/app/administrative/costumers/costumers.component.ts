@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CostumerService } from './shared/costumer.service';
-import { Costumers } from './shared/costumers';
+import { Costumer } from './shared/costumers';
 import { MatDialog } from '@angular/material/dialog';
 import {
   Observable,
@@ -24,7 +24,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 export class CostumersComponent {
   @ViewChild('input') input!: ElementRef;
 
-  costumers$!: Observable<Costumers[]>;
+  costumers$: Observable<Costumer[]> = new Observable<Costumer[]>();
 
   constructor(
     private matDialog: MatDialog,
@@ -34,7 +34,7 @@ export class CostumersComponent {
   ) {}
 
   ngAfterViewInit() {
-    const searchParts$: Observable<Costumers[]> = fromEvent<any>(
+    const searchParts$: Observable<Costumer[]> = fromEvent<any>(
       this.input.nativeElement,
       'keyup'
     ).pipe(
@@ -49,16 +49,16 @@ export class CostumersComponent {
     this.costumers$ = concat(initialParts$, searchParts$);
   }
 
-  getCostumers(name?: string): Observable<Costumers[]> {
+  getCostumers(name?: string): Observable<Costumer[]> {
     return this.CostumerService.get(name);
   }
 
-  deleteCostumer(costumers: Costumers): void {
+  deleteCostumer(costumers: Costumer): void {
     this.dialogService
       .dialog(`Deseja mesmo excluir o item ${costumers.name}?`, true)
       .afterClosed()
       .pipe(
-        switchMap((result: Costumers) => {
+        switchMap((result: Costumer) => {
           if (result) {
             return this.CostumerService.delete(costumers).pipe(
               tap(() =>
@@ -75,11 +75,11 @@ export class CostumersComponent {
       .subscribe();
   }
 
-  refreshCostumersList(): Observable<Costumers[]> {
+  refreshCostumersList(): Observable<Costumer[]> {
     return (this.costumers$ = this.getCostumers());
   }
 
-  async openCostumer(costumer?: Costumers) {
+  async openCostumer(costumer?: Costumer) {
     const { FormularioComponent } = await import(
       './formulario/formulario.component'
     );
@@ -89,19 +89,10 @@ export class CostumersComponent {
       })
       .afterClosed()
       .pipe(
-        switchMap((result: Costumers) => {
-          if (result) {
-            return (this.costumers$ = this.getCostumers()).pipe(
-              tap(() =>
-                this.alertService.success(
-                  `${costumer?.name || 'item'} ${
-                    costumer?.id ? 'editado' : 'criado'
-                  } com sucesso!`
-                )
-              )
-            );
-          }
-          return result;
+        switchMap((result: Costumer) => {
+          if (result) return (this.costumers$ = this.getCostumers());
+
+          return '';
         })
       )
       .subscribe();

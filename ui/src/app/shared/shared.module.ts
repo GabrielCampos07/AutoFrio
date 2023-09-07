@@ -7,6 +7,7 @@ import { FormComponent } from './components/form/form.component';
 import { CommonModule } from '@angular/common';
 import { InputComponent } from './components/input/input.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http } from '../../../shared/services/http.service';
-import { Costumers } from './costumers';
+import { Costumer } from './costumers';
 
 @Injectable({
   providedIn: 'root',
@@ -11,23 +11,23 @@ export class CostumerService {
 
   constructor(private http: Http) {}
 
-  get(name?: string): Observable<Costumers[]> {
+  get(name?: string): Observable<Costumer[]> {
     return name
       ? this.http.get(`${this.route}?name_like=${name}`)
       : this.http.get(`${this.route}`);
   }
 
-  getById(costumer: Costumers): Observable<Costumers> {
+  getById(costumer: Costumer): Observable<Costumer> {
     return this.http.get(`${this.route}/${costumer.id}`);
   }
 
-  save(costumer: Costumers) {
+  save(costumer: Costumer) {
     return costumer.id
       ? this.http.put(`${this.route}/${costumer.id}`, costumer)
       : this.http.post(`${this.route}`, costumer);
   }
 
-  delete(costumer: Costumers) {
+  delete(costumer: Costumer) {
     return this.http.delete(`${this.route}/${costumer.id}`);
   }
 }

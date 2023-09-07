@@ -13,6 +13,7 @@ export class InputComponent {
   @Input() type: string = 'text';
   @Input() ngModel: any;
   @Input() mask = '';
+  @Input() options: any[] | null = [];
 
   @Output() ngModelChange = new EventEmitter();
 

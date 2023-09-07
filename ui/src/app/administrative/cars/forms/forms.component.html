@@ -7,32 +7,37 @@
     <app-form #form>
       <div class="forms">
         <app-input
-          [(ngModel)]="car.model_id!"
-          label="Car model"
-          [required]="true"
-          name="Car model"
-          ngDefaultControl
-        >
-          <span required>Car model is required!</span>
-        </app-input>
-
-        <app-input
-          [(ngModel)]="car.brand_id!"
-          label="Car brand"
-          [required]="true"
-          name="Car brand"
-          ngDefaultControl
-        >
-          <span required>Car brand is required!</span>
-        </app-input>
-
-        <app-input
           [(ngModel)]="car.license_plate!"
           label="License plate"
           [required]="true"
           name="License plate"
           ngDefaultControl
         >
+          <span required>License plate is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="car.model!"
+          label="Model"
+          [required]="true"
+          name="Model"
+          ngDefaultControl
+          type="combo"
+          [options]="models$ | async"
+        >
+          <span required>Model is required!</span>
+        </app-input>
+
+        <app-input
+          [(ngModel)]="car.brand!"
+          label="Brand"
+          [required]="true"
+          name="Brand"
+          ngDefaultControl
+          type="combo"
+          [options]="brands$ | async"
+        >
+          <span required>Brand is required!</span>
         </app-input>
 
         <app-input
@@ -41,7 +46,27 @@
           [required]="true"
           name="Year"
           ngDefaultControl
+          mask="0000"
           ><span required>Year is required!</span></app-input
+        >
+
+        <app-input
+          [(ngModel)]="car.mileage!"
+          label="Mileage"
+          [required]="true"
+          name="Mileage"
+          ngDefaultControl
+          type="number"
+          ><span required>Mileage is required!</span></app-input
+        >
+
+        <app-input
+          [(ngModel)]="car.color!"
+          label="Color"
+          [required]="true"
+          name="Color"
+          ngDefaultControl
+          ><span required>Color is required!</span></app-input
         >
       </div>
     </app-form>
@@ -49,7 +74,7 @@
 
   <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button (click)="saveCar(form)" [mat-dialog-close]="'ok'">
+    <button mat-raised-button (click)="saveCar(form)">
       Save
     </button>
   </div>

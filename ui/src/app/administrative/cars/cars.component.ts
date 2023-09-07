@@ -56,16 +56,14 @@ export class CarsComponent {
 
   deleteCar(cars: Car): void {
     this.dialogService
-      .dialog(`Deseja mesmo excluir o item ${cars.model_id}?`, true)
+      .dialog(`Deseja mesmo excluir o item ${cars.model}?`, true)
       .afterClosed()
       .pipe(
         switchMap((result: Car) => {
           if (result) {
             return this.carService.delete(cars).pipe(
               tap(() =>
-                this.alertService.success(
-                  `${cars.model_id} excluido com sucesso!`
-                )
+                this.alertService.success(`${cars.model} excluido com sucesso!`)
               ),
               switchMap(() => this.refreshCarsList())
             );
@@ -89,19 +87,9 @@ export class CarsComponent {
       .afterClosed()
       .pipe(
         switchMap((result: Car) => {
-          console.log(result);
-          if (result) {
-            return (this.cars$ = this.getCars()).pipe(
-              tap(() =>
-                this.alertService.success(
-                  `${car?.model_id || 'item'} ${
-                    car?.id ? 'editado' : 'criado'
-                  } com sucesso!`
-                )
-              )
-            );
-          }
-          return throwError('Objeto não fornecido');
+          if (result) return (this.cars$ = this.getCars());
+
+          return '';
         })
       )
       .subscribe();

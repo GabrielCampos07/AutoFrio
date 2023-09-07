@@ -1,4 +1,4 @@
-export interface Costumers {
+export interface Costumer {
   id?: number;
   name?: string;
   document?: string;
