@@ -10,8 +10,12 @@ class CarBrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->name) {
+            return CarBrand::where('car_brand.name', 'LIKE', '%'.$request->name.'%')->get();
+        }
+
         return CarBrand::all();
     }
 
