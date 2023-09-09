@@ -4,17 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\CarModel;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class CarModelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $brandID = request('brandID');
-        if ($brandID) {
-            return CarModel::where('brand_id','=', $brandID)->get();
+
+        if ( $request->name || $request->brandID ) {
+            return CarModel::select(
+                "car_model.id",
+                "car_model.name as model",
+                "car_brand.name as brand",
+                "car_model.created_at",
+                "car_model.updated_at"
+            )
+            ->join('car_brand', 'car_model.brand_id', '=', 'car_brand.id')
+            ->when(
+                $request->name, function (Builder $builder) use ($request) {
+                    $builder->where('car_model.name', 'LIKE','%'.$request->name.'%');
+                }
+            )
+            ->when(
+                $request->brandID, function (Builder $builder) use ($request) {
+                    $builder->where('car_model.brand_id', '=', $request->brandID);
+                }
+            )
+            ->get();
         }
 
         return CarModel::all();
@@ -40,11 +59,19 @@ class CarModelController extends Controller
      */
     public function show(string $carModel)
     {
-        $carModel = CarModel::find($carModel);
-        if ($carModel) {
-            $carModel->brand;
-            
-            return $carModel;
+        $selectedCarModel = CarModel::select(
+                "car_model.id",
+                "car_model.name as model",
+                "car_brand.name as brand",
+                "car_model.created_at",
+                "car_model.updated_at"
+            )
+            ->join('car_brand', 'car_model.brand_id', '=', 'car_brand.id')
+            ->where('car_model.id', '=', $carModel)
+            ->get();
+
+        if ($selectedCarModel) {
+            return $selectedCarModel;
         }
 
         return response(['message' => 'Car model not found.'], 404);

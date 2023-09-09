@@ -43,8 +43,6 @@ class CarBrandController extends Controller
         $carBrand = CarBrand::find($carBrand);
 
         if ($carBrand) {
-            
-            $carBrand->models;
             return $carBrand;
         }
 

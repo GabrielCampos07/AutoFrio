@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
 class CarController extends Controller
@@ -22,7 +21,8 @@ class CarController extends Controller
                 "car.year",
                 "car.mileage",
                 "car.color",
-                "car.created_at"
+                "car.created_at",
+                "car.updated_at"
             )
             ->join('car_model', 'car.model_id', '=', 'car_model.id')
             ->join('car_brand', 'car.brand_id', '=', 'car_brand.id')
@@ -59,7 +59,7 @@ class CarController extends Controller
      */
     public function show(Request $request, string $car)
     {
-        $car = Car::select(
+        $selectedCar = Car::select(
                 "car.id",
                 "car_model.name as model",
                 "car_brand.name as brand",
@@ -67,16 +67,16 @@ class CarController extends Controller
                 "car.year",
                 "car.mileage",
                 "car.color",
-                "car.created_at"
+                "car.created_at",
+                "car.updated_at"
             )
             ->join('car_model', 'car.model_id', '=', 'car_model.id')
             ->join('car_brand', 'car.brand_id', '=', 'car_brand.id')
-            ->where('car.id')
+            ->where('car.id', '=', $car)
             ->get();
 
-        if ($car) {
-
-            return $car;
+        if ($selectedCar) {
+            return $selectedCar;
         }
 
         return response(['message' => 'Car not found.'], 404);
