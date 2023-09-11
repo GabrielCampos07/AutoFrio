@@ -4,15 +4,14 @@ import {
   Component,
   Inject,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CarService } from '../shared/car.service';
-import { Car } from '../shared/car';
+import { Brand, Car, Model } from '../shared/car';
 import { FormComponent } from 'src/app/shared/components/form/form.component';
 import { CommonModule } from '@angular/common';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { AlertService } from 'src/app/shared/services/alert.service';
 
 @Component({
@@ -26,6 +25,7 @@ import { AlertService } from 'src/app/shared/services/alert.service';
 })
 export class FormsComponent implements OnInit {
   car: Car = {};
+
   brands$: Observable<string[]> = new Observable<string[]>();
   models$: Observable<string[]> = new Observable<string[]>();
 
@@ -49,28 +49,30 @@ export class FormsComponent implements OnInit {
       this.carService
         .save(this.car)
         .pipe(
-          tap((car) => {
-            this.handleSuccess(car);
+          tap(() => this.handleSuccess()),
+          catchError((err) => {
+            this.handleError(err);
+            return throwError(err);
           })
         )
-        .subscribe({
-          error: (error) => {
-            this.handleError(error);
-          },
-        });
+        .subscribe();
     }
   }
 
-  private handleSuccess(car: Car): void {
-    this.alertService.success(
-      `${car?.model} ${car?.id ? 'editado' : 'criado'} com sucesso!`
-    );
+  refreshBrandID(): void {
+    let _brandName = this.car.brand!.toString();
 
-    this.dialogRef.close('ok');
+    this.getBrandByName(_brandName).subscribe(
+      (result: Brand[]) => (this.car.brand_id = result[0].id)
+    );
   }
 
-  private handleError(error: Error): void {
-    this.alertService.error(error.message);
+  refreshModelID(): void {
+    let modelName = this.car.model!.toString();
+
+    this.getModelByName(modelName).subscribe(
+      (result: Model[]) => (this.car.model_id = result[0].id)
+    );
   }
 
   getCar(): void {
@@ -90,5 +92,25 @@ export class FormsComponent implements OnInit {
     return this.carService
       .getModel()
       .pipe(map((models) => models.map((model) => model.name!)));
+  }
+
+  getBrandByName(name: string): Observable<Brand[]> {
+    return this.carService.getBrand(name);
+  }
+
+  getModelByName(name: string): Observable<Model[]> {
+    return this.carService.getModel(name);
+  }
+
+  private handleSuccess(): void {
+    this.alertService.success(
+      `item ${this.car.id ? 'editado' : 'criado'} com sucesso!`
+    );
+
+    this.dialogRef.close('ok');
+  }
+
+  private handleError(error: Error): void {
+    this.alertService.error(error.message);
   }
 }

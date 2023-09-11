@@ -6,6 +6,8 @@ export interface Car {
   color?: string;
   model?: Model;
   brand?: Brand;
+  model_id?: number;
+  brand_id?: number;
 }
 
 export interface Model extends Brand {}

@@ -7,7 +7,7 @@
     <app-form #form>
       <div class="forms">
         <app-input
-          [(ngModel)]="car.license_plate!"
+          [(ngModel)]="car.license_plate"
           label="License plate"
           [required]="true"
           name="License plate"
@@ -17,31 +17,33 @@
         </app-input>
 
         <app-input
-          [(ngModel)]="car.model!"
+          [(ngModel)]="car.model"
           label="Model"
           [required]="true"
           name="Model"
           ngDefaultControl
           type="combo"
           [options]="models$ | async"
+          (ngModelChange)="refreshModelID()"
         >
           <span required>Model is required!</span>
         </app-input>
 
         <app-input
-          [(ngModel)]="car.brand!"
+          [(ngModel)]="car.brand"
           label="Brand"
           [required]="true"
           name="Brand"
           ngDefaultControl
           type="combo"
           [options]="brands$ | async"
+          (ngModelChange)="refreshBrandID()"
         >
           <span required>Brand is required!</span>
         </app-input>
 
         <app-input
-          [(ngModel)]="car.year!"
+          [(ngModel)]="car.year"
           label="Year"
           [required]="true"
           name="Year"
@@ -51,7 +53,7 @@
         >
 
         <app-input
-          [(ngModel)]="car.mileage!"
+          [(ngModel)]="car.mileage"
           label="Mileage"
           [required]="true"
           name="Mileage"
@@ -61,7 +63,7 @@
         >
 
         <app-input
-          [(ngModel)]="car.color!"
+          [(ngModel)]="car.color"
           label="Color"
           [required]="true"
           name="Color"
@@ -74,8 +76,6 @@
 
   <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button (click)="saveCar(form)">
-      Save
-    </button>
+    <button mat-raised-button (click)="saveCar(form)">Save</button>
   </div>
 </div>

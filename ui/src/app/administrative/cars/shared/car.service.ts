@@ -11,10 +11,8 @@ export class CarService {
 
   constructor(private http: Http) {}
 
-  get(license_plate?: string): Observable<Car[]> {
-    return license_plate
-      ? this.http.get(`${this.route}?license_plate_like=${license_plate}`)
-      : this.http.get(`${this.route}`);
+  get(searchTerm?: Car): Observable<Car[]> {
+    return this.http.get(`${this.route}`, { params: searchTerm });
   }
 
   getById(car: Car): Observable<Car> {
@@ -31,11 +29,15 @@ export class CarService {
     return this.http.delete(`${this.route}/${car.id}`);
   }
 
-  getBrand(): Observable<Brand[]> {
-    return this.http.get(`${this.route}/brand`);
+  getBrand(name?: string): Observable<Brand[]> {
+    return name
+      ? this.http.get(`${this.route}/brand?name=${name}`)
+      : this.http.get(`${this.route}/brand`);
   }
 
-  getModel(): Observable<Model[]> {
-    return this.http.get(`${this.route}/model`);
+  getModel(name?: string): Observable<Model[]> {
+    return name
+      ? this.http.get(`${this.route}/model?name=${name}`)
+      : this.http.get(`${this.route}/model`);
   }
 }

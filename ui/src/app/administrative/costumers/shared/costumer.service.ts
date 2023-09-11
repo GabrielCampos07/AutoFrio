@@ -11,9 +11,9 @@ export class CostumerService {
 
   constructor(private http: Http) {}
 
-  get(name?: string): Observable<Costumer[]> {
-    return name
-      ? this.http.get(`${this.route}?name_like=${name}`)
+  get(search?: string): Observable<Costumer[]> {
+    return search
+      ? this.http.get(`${this.route}`, search)
       : this.http.get(`${this.route}`);
   }
 

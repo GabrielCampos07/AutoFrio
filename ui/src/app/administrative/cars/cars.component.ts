@@ -1,15 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  Observable,
-  concat,
-  debounceTime,
-  distinctUntilChanged,
-  fromEvent,
-  map,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable, switchMap, tap } from 'rxjs';
 import { Car } from './shared/car';
 import { CarService } from './shared/car.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,9 +13,15 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
   providers: [AlertService, DialogService],
 })
 export class CarsComponent {
-  @ViewChild('input') input!: ElementRef;
-
-  cars$!: Observable<Car[]>;
+  cars$: Observable<Car[]> = new Observable<Car[]>();
+  searchCar: Car = {
+    license_plate: '',
+    year: 0,
+    mileage: 0,
+    color: '',
+    model: { name: '' },
+    brand: { name: '' },
+  };
 
   constructor(
     private matDialog: MatDialog,
@@ -35,23 +31,11 @@ export class CarsComponent {
   ) {}
 
   ngAfterViewInit() {
-    const searchParts$: Observable<Car[]> = fromEvent<any>(
-      this.input.nativeElement,
-      'keyup'
-    ).pipe(
-      map((event) => event.target.value),
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap((search) => this.getCars(search))
-    );
-
-    const initialParts$ = this.getCars();
-
-    this.cars$ = concat(initialParts$, searchParts$);
+    this.refreshCarsList();
   }
 
-  getCars(license_plate?: string): Observable<Car[]> {
-    return this.carService.get(license_plate);
+  getCars(searchCar?: Car): Observable<Car[]> {
+    return this.carService.get(searchCar);
   }
 
   deleteCar(car: Car): void {
@@ -72,8 +56,8 @@ export class CarsComponent {
     );
   }
 
-  refreshCarsList(): Observable<Car[]> {
-    return (this.cars$ = this.getCars());
+  refreshCarsList(searchCar?: Car): Observable<Car[]> {
+    return (this.cars$ = this.getCars(searchCar));
   }
 
   async openCar(car?: Car) {

@@ -3,24 +3,67 @@
   <h1>Cars</h1>
 </div>
 <div class="header-administrative">
-  <div>
-    <app-filter-button>
-      <div class="content">
-        <mat-form-field appearance="outline">
-          <mat-label>license plate</mat-label>
-          <input matInput #input placeholder="type the license plate" />
-        </mat-form-field>
-      </div>
-    </app-filter-button>
-  </div>
+  <app-filter-button>
+    <app-input
+      label="license plate"
+      placeholder="type the license plate"
+      [(ngModel)]="searchCar.license_plate"
+      name="license_plate"
+      ngDefaultControl
+    >
+    </app-input>
+    <app-input
+      label="year"
+      placeholder="type the year"
+      [(ngModel)]="searchCar.year"
+      name="year"
+      ngDefaultControl
+    >
+    </app-input>
+    <app-input
+      label="mileage"
+      placeholder="type the mileage"
+      [(ngModel)]="searchCar.mileage"
+      name="mileage"
+      ngDefaultControl
+    >
+    </app-input>
+    <app-input
+      label="color"
+      placeholder="type the color"
+      [(ngModel)]="searchCar.color"
+      name="color"
+      ngDefaultControl
+    >
+    </app-input>
+    <app-input
+      label="model"
+      placeholder="type the model"
+      [(ngModel)]="searchCar.model"
+      name="model"
+      ngDefaultControl
+    >
+    </app-input>
+    <app-input
+      label="brand"
+      placeholder="type the brand"
+      [(ngModel)]="searchCar.brand"
+      name="brand"
+      ngDefaultControl
+    >
+    </app-input>
+
+    <button matButton (click)="refreshCarsList(searchCar)">search</button>
+  </app-filter-button>
+
   <div>
     <button mat-flat-button color="accent" (click)="openCar()">REGISTER</button>
   </div>
 </div>
 <ng-container *ngIf="cars$ | async as cars">
   <app-table [data]="cars" [length]="cars.length">
-    <div t-head>ID</div>
-    <div *tableItem="let item">{{ item.id }}</div>
+    <div t-head>License Plate</div>
+    <div *tableItem="let item">{{ item.license_plate }}</div>
 
     <div t-head>Model</div>
     <div *tableItem="let item">{{ item.model }}</div>
@@ -28,17 +71,14 @@
     <div t-head>Brand</div>
     <div *tableItem="let item">{{ item.brand }}</div>
 
-    <div t-head>License Plate</div>
-    <div *tableItem="let item">{{ item.license_plate }}</div>
-
     <div t-head>Year</div>
     <div *tableItem="let item">{{ item.year }}</div>
 
-    <div t-head>Mileage</div>
-    <div *tableItem="let item">{{ item.mileage }}</div>
-
     <div t-head>Color</div>
     <div *tableItem="let item">{{ item.color }}</div>
+
+    <div t-head>Mileage</div>
+    <div *tableItem="let item">{{ item.mileage }}</div>
 
     <div t-head>Action</div>
     <div *tableItem="let item">

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -32,10 +32,6 @@ export class InputComponent {
   formControl: FormControl = new FormControl();
 
   constructor() {}
-
-  modelChanging(): void {
-    this.ngModelChange.emit(this.ngModel);
-  }
 
   ngAfterContentInit(): void {
     this.formControl.valueChanges.subscribe((value) => {
