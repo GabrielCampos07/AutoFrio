@@ -7,9 +7,6 @@ import { FormComponent } from './components/form/form.component';
 import { CommonModule } from '@angular/common';
 import { InputComponent } from './components/input/input.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { DocumentPipe } from './pipes/document.pipe';
-import { PhonePipe } from './pipes/phone.pipe';
-import { CepPipe } from './pipes/cep.pipe';
 
 @NgModule({
   imports: [
@@ -19,14 +16,7 @@ import { CepPipe } from './pipes/cep.pipe';
     FormsModule,
     NgxMaskModule.forRoot(),
   ],
-  declarations: [
-    FilterButtonComponent,
-    FormComponent,
-    InputComponent,
-    DocumentPipe,
-    PhonePipe,
-    CepPipe,
-  ],
+  declarations: [FilterButtonComponent, FormComponent, InputComponent],
   exports: [
     MaterialModule,
     TableModule,
@@ -36,9 +26,6 @@ import { CepPipe } from './pipes/cep.pipe';
     InputComponent,
     FormsModule,
     NgxMaskModule,
-    DocumentPipe,
-    PhonePipe,
-    CepPipe,
   ],
   providers: [],
 })
