@@ -27,12 +27,26 @@ class CarController extends Controller
             ->join('car_model', 'car.model_id', '=', 'car_model.id')
             ->join('car_brand', 'car.brand_id', '=', 'car_brand.id')
             ->when(
-                $request->searchTerm,
-                function (Builder $builder) use ($request) {
+                $request->searchTerm, function (Builder $builder) use ($request) {
                     $builder->where('car.license_plate', 'LIKE','%'.$request->searchTerm.'%')
                         ->orWhere('car.color', 'LIKE','%'.$request->searchTerm.'%')
                         ->orWhere('car_model.name', 'LIKE','%'.$request->searchTerm.'%')
                         ->orWhere('car_brand.name', 'LIKE','%'.$request->searchTerm.'%');
+                }
+            )
+            ->when(
+                $request->brandName, function (Builder $builder) use ($request) {
+                    $builder->where('car_model.name', 'LIKE','%'.$request->brandName.'%');
+                }
+            )
+            ->when(
+                $request->modelName, function (Builder $builder) use ($request) {
+                    $builder->where('car_model.brand_id', 'LIKE','%'.$request->modelName.'%');
+                }
+            )
+            ->when(
+                $request->licensePlate, function (Builder $builder) use ($request) {
+                    $builder->where('car.license_plate', 'LIKE','%'.$request->licensePlate.'%');
                 }
             )
             ->get();
